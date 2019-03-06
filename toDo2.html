@@ -1,0 +1,67 @@
+<!-- <!DOCTYPE html> -->
+<html ng-app="toDoApp">
+
+<head>    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+  <!-- <script src="script.js"></script> -->
+  
+  <script src="toDoApp.js" type="text/javascript" charset="utf-8"></script>
+  <script src="toDoCtrl.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" href="style.css">
+  <title>To Do List app</title>
+</head>
+
+<body ng-controller="toDoCtrl">
+      <h1 class="text-center">To Do List</h1>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-3 in2"><label for="desc">Description:</label><input id="desc" class="form-control my-2" placeholder="What to do next?" ng-model="toDoItem"></div>
+        <div class="col-sm-2 in2"><label for="date1">Due Date:</label><input id="date1" class="form-control my-2" placeholder="Deadline" type="date" ng-model="toDoDue"></div>
+        <div class="col-sm-2 in2"><label for="priority">Priority:</label>
+          <select class="form-control my-2" id="priority" ng-model="toDoPriority">
+            <option value="Low">Low</option>
+            <option value="Normal" selected>Normal</option>
+            <option value="High">High</option>
+          </select></div>
+        <div class="col-sm-2 in3"><button class="btn btn-primary" ng-click="addToList(toDoItem, toDoDue, toDoPriority)">Enter</button></div>
+      </div>
+      <br>
+    <div ng-show="toDoItems.length === 0"><h3 class="text-center">Please add some items to do.</h3> </div>
+    <div ng-show="toDoItems.length > 0">
+    <div class="row checkbox" ng-class="{'done' : item.state}" ng-repeat="item in toDoItems | filter : fltr " ng-mouseover="delet = 'yes'" ng-mouseleave="delet = 'no'">
+      <div class="col-sm-2"></div>
+        <div class="col-sm-3 lft" ng-class="{'evenStriped' : $even,'striped' : $odd, 'top' : $index === 0, 'btm' : $index === toDoItems.length - 1}"><label><input ng-click="countChecked(item)" type="checkbox" value="" ng-checked="item.state" ng-model="chkd" ></label>{{item.desc}}</div>
+        <div class="col-sm-2" ng-class="{'evenStriped' : $even,'striped' : $odd, 'top' : $index === 0, 'btm' : $index === toDoItems.length - 1}">{{"Due by: "+ (item.dueDate | date : mediumDate)}}</div>
+        <div class="col-sm-2" ng-class="{'evenStriped' : $even,'striped' : $odd, 'top' : $index === 0, 'btm' : $index === toDoItems.length - 1}">{{"Priority: " + item.priority }}</div>
+        <div class="col-sm-1 rit" ng-class="{'evenStriped' : $even,'striped' : $odd, 'top' : $index === 0, 'btm' : $index === toDoItems.length - 1}"><i class="fa" style="font-size:18px;color:red" ng-click="deleteThis($index)" ng-class="{'fa-trash-o' : delet === 'yes', '' : delet === 'no'}"></i></div>
+      </div>
+      <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-3">{{(toDoItems.length - itemsDone) + " items left to do."}}</div>
+      <div class="col-sm-4">
+          <button class="btn btn-light float-right btn" ng-class="{'btn-light' : srt != 'completed', 'btn-primary' : srt === 'completed'}" ng-click="filterItems('completed')">Completed</button>
+          <button class="btn btn-light float-right btn" ng-class="{'btn-light' : srt != 'active', 'btn-primary' : srt === 'active'}" ng-click="filterItems('active')">Active</button>
+          <button class="btn btn-primary float-right btn" ng-class="{'btn-light' : srt != 'all', 'btn-primary' : srt === 'all'}" ng-click="filterItems('all')">All</button>
+          
+          
+      </div>
+
+    </div>
+    </div>
+</body>
+
+  </html>
+
+    <!-- yossi horn -->
