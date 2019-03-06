@@ -1,9 +1,13 @@
 app.controller("toDoCtrl", function($scope) {
-    function ToDoItem(desc, state, dueDate, priority) {
-        this.desc = desc;
-        this.state = state;
-        this.dueDate = dueDate;
-        this.priority = priority;
+    function ToDoItem(parseItems) {
+      this.desc = parseItems.get("description");
+      this.state = parseItems.get("doneState");
+      this.dueDate = parseItems.get("DueDate");
+      this.priority = parseItems.get("Priority");
+        // this.desc = desc;
+        // this.state = state;
+        // this.dueDate = dueDate;
+        // this.priority = priority;
       }
     
     //   ToDoItem.prototype.isBirthday = function() {
@@ -12,17 +16,41 @@ app.controller("toDoCtrl", function($scope) {
     //     if (currentMonth === this.bday.getMonth() && currentDate === this.bday.getDate()) {
     //         return true;
     //     } else {
-    //         return false;
+    //         return false; testing
     //     }
     //   }
 
-    $scope.toDoItems = [];
-    $scope.toDoItems.push(new ToDoItem("Do the laundry", false, new Date("2019-03-03"), "Normal"));
-    $scope.toDoItems.push(new ToDoItem("Go fishing", false, new Date("2019-03-03"), "Normal"));
-    $scope.toDoItems.push(new ToDoItem("help kids with homework", false, new Date("2019-03-03"), "High"));
-    $scope.toDoItems.push(new ToDoItem("fix the washing machine", false, new Date("2019-03-03"), "Low"));
-    $scope.toDoItems.push(new ToDoItem("Go see the new Avengers movie", false, new Date("2019-03-03"), "Normal"));
+    // $scope.toDoItems = [];
+    // $scope.toDoItems.push(new ToDoItem("Do the laundry", false, new Date("2019-03-03"), "Normal"));
+    // $scope.toDoItems.push(new ToDoItem("Go fishing", false, new Date("2019-03-03"), "Normal"));
+    // $scope.toDoItems.push(new ToDoItem("help kids with homework", false, new Date("2019-03-03"), "High"));
+    // $scope.toDoItems.push(new ToDoItem("fix the washing machine", false, new Date("2019-03-03"), "Low"));
+    // $scope.toDoItems.push(new ToDoItem("Go see the new Avengers movie", false, new Date("2019-03-03"), "Normal"));
     
+    function Recipe(parseRecipe) {
+      this.id = parseRecipe.get("id");
+      this.name = parseRecipe.get("name");
+
+  }
+
+    $scope.getList = function() {
+      var async = $q.defer();
+      $scope.toDoItems = [];
+      const toDoParse = Parse.Object.extend('ToDoItem');
+      const query = new Parse.Query(toDoParse);
+      query.find().then(function(results) {
+        for (var i = 0; i < results.length; i++) {
+          $toDoItems.push(new ToDoItem(results[i]));
+        }
+        async.resolve(toDoItems);
+      }, function(error) {
+        $log.error('Error while fetching Recipe', error);
+        async.reject(error);
+      });
+      return async.promise;
+    }
+
+
 
        $scope.srt = "all";
        $scope.fltr = "";
