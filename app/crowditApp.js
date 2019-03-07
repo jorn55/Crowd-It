@@ -3,6 +3,7 @@ var app = angular.module("crowditApp", ["ngRoute"]);
 
 
 app.config(function($routeProvider) {
+    
     $routeProvider.when("/", {
         templateUrl: "app/splash/splash.html",
         controller: "splashCtrl"

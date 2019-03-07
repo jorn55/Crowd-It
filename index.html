@@ -1,10 +1,13 @@
-<!-- <!DOCTYPE html> -->
+<!DOCTYPE html>
 <html ng-app="crowditApp">
 
 <head>    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-route.js"></script>
+
 
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -14,26 +17,28 @@
     
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
   <!-- <script src="script.js"></script> -->
   
 
 
   <link rel="stylesheet" href="style.css">
   <script src="app/crowditApp.js"></script>
-  <script src="app/navbar/navbarDir.js"></script>
-  <script src="app/answerQs/answerQs.js"></script>
-  <script src="app/favQs/favQs.js"></script>
-  <script src="app/myQs/myQs.js"></script>
+  <script src="app/navbar/navBarDir.js"></script>
+  <script src="app/answerQs/answerQsCtrl.js"></script>
+  <script src="app/favQs/favQsCtrl.js"></script>
+  <script src="app/myQs/myQsCtrl.js"></script>
+  <script src="app/splash/splashCtrl.js"></script>
+  <script src="app/signUp/signUpCtrl.js"></script>
+  <script src="app/myQs/newQCtrl.js"></script>
 
 
-  
   <title>Crowd It</title>
 </head>
 
 <body>
-    <crowdit-navbar></crowdit-navbar>
-      <h1 class="text-center">Crowd It! beta 0.01</h1>
+  <ng-view></ng-view>
+    <!-- <crowdit-navbar></crowdit-navbar>
+      <h1 class="text-center">Crowd It! beta 0.01</h1> -->
       
 </body>
 
