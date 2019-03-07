@@ -6,21 +6,22 @@
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavId">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li class="nav-item" ng-show="isUserLoggedIn()">
+            <li class="nav-item" ng-show="isUserLoggedIn">
                 <a class="nav-link" href="#!/myQs">My Qs</a>
             </li>
-            <li class="nav-item" ng-show="isUserLoggedIn()">
+            <li class="nav-item" ng-show="isUserLoggedIn">
                 <a class="nav-link" href="#!/favQs">Fav Qs</a>
+            </li>
+            <li class="nav-item" ng-hide="isUserLoggedIn">
+                    <a class="nav-link" href="#!/answerQs">Answer Qs</a>
             </li>
         </ul>
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-            <li class="nav-item" ng-hide="isUserLoggedIn()">
-                <a class="nav-link" href="#!/answerQs">Answer Qs</a>
-            </li>
-            <li class="nav-item" ng-hide="isUserLoggedIn()">
+            
+            <li class="nav-item" ng-hide="isUserLoggedIn">
                 <a class="nav-link" href="#">Sign Up</a>
             </li>
-            <li class="nav-item" ng-show="isUserLoggedIn()">
+            <li class="nav-item" ng-show="isUserLoggedIn">
                 <a class="nav-link" href="javascript:void(0)" ng-click="logout()">Logout</a>
             </li>
         </ul>

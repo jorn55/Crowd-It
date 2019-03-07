@@ -1,5 +1,5 @@
-app.controller("anserQsCtrl", function($scope) {
+app.controller("answerQsCtrl", function($scope) {
 
-  
+  $scope.items = ["one", "two", "three"];
   });
   
