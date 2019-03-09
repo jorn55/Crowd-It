@@ -54,3 +54,12 @@ label {
 .btm {
     border-bottom: solid black;
 }
+
+.anyClass {
+    height:600px;
+    overflow-y: scroll;
+  }
+
+.ifa1 {
+    font-size: 28px;
+}
