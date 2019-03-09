@@ -25,5 +25,12 @@ app.controller("answerQsCtrl", function($scope) {
   "Which car is best2?",
   "Which song should I play at my wedding2?"  
 ];
+
+$scope.updateQuestion = function(item) {
+  $scope.quest = item;
+  // console.log(item);
+}
   });
+
+
   
