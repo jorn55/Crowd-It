@@ -1,7 +1,7 @@
 app.directive("crowditNavbar", function() {
     return {
         templateUrl: "app/navbar/navbar.html",
-        restrcit: "E",
+        restrict: "E",
         controller: "navbarCtrl"
     }
 })
