@@ -44,6 +44,9 @@ app.factory("questionSrv", function($q, $http){
     // }
     //   return async.promise;
     //   }
+        
+    
+    function getQuestions() {
   
     var items = [
       {
@@ -184,25 +187,12 @@ app.factory("questionSrv", function($q, $http){
       }
     ];
 
-
-      function addActor(id, firstName, lastName, birthday, picLink, pageLink) {
-        var async = $q.defer();
-  
-        var newActor = new Actor(id, firstName, lastName, birthday, picLink, pageLink);
-        actors.push(newActor);
-        async.resolve(newActor);
-      
-        return async.promise;
-      }
-  
-  
-  
-        
+    return items;
+  }
+       
   
   return {
-      getActors: getActors,
-      addActor: addActor,
-      addSelected: addSelected
+    getQuestions: getQuestions
   }
   
   });

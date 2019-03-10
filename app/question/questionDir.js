@@ -1,7 +1,7 @@
 app.directive("crowditQuestion", function() {
     return {
         templateUrl: "app/question/question.html",
-        restrcit: "E",
+        // restrcit: "E",
         controller: "questionCtrl"
     }
 })
