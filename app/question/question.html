@@ -1,26 +1,27 @@
-<h2 class="text-center">{{quest}}</h2>
+<h2 class="text-center">{{quest.title}}</h2>
+<p class="text-center">{{quest.description}}</p>
 <div class="card-deck">
     <div class="card" style="height:300px">
-        <img class="card-img-top" style="height:180px" src="https://media0.giphy.com/media/QpWDP1YMziaQw/giphy.gif" alt="Card image">
+        <img class="card-img-top" style="height:180px" src={{quest.op1image}} alt="Card image">
         <div class="card-body">
-          <h4 class="card-title">John Doe</h4>
-          <p class="card-text">Some example text.</p>
+          <h4 class="card-title">{{quest.op1title}}</h4>
+          <p class="card-text">{{quest.op1descr}}</p>
 
         </div>
       </div>
       <div class="card" style="height:300px">
-        <img class="card-img-top" style="height:180px" src="https://media1.giphy.com/media/Fco9iOIbK69va/giphy.gif?cid=3640f6095c841a654d4937346b27d5f3" alt="Card image">
+        <img class="card-img-top" style="height:180px" src={{quest.op2image}} alt="Card image">
         <div class="card-body">
-          <h4 class="card-title">John Doe</h4>
-          <p class="card-text">Some example text.</p>
+          <h4 class="card-title">{{quest.op2title}}</h4>
+          <p class="card-text">{{quest.op2descr}}</p>
 
         </div>
       </div>
       <div class="card" style="height:300px">
-        <img class="card-img-top" style="height:180px" src="https://media2.giphy.com/media/IJ5GX0hGQ3jiM/giphy.gif?cid=3640f6095c841a86574f324467a34a09" alt="Card image">
+        <img class="card-img-top" style="height:180px" src={{quest.op3image}} alt="Card image">
         <div class="card-body">
-          <h4 class="card-title">John Doe</h4>
-          <p class="card-text">Some example text.</p>
+          <h4 class="card-title">{{quest.op3title}}</h4>
+          <p class="card-text">{{quest.op3descr}}</p>
 
         </div>
       </div>

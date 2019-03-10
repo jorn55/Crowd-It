@@ -1,5 +1,5 @@
 body {
-    background-color: #f7ee8b;
+    background-color: #cefcff;
 }
 
 .myCard {
@@ -56,10 +56,15 @@ label {
 }
 
 .anyClass {
-    height:600px;
+    min-height:100%;
     overflow-y: scroll;
   }
 
 .ifa1 {
     font-size: 28px;
+}
+
+.my-head {
+    margin : 10px;
+    height: 200px;
 }

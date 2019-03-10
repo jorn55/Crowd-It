@@ -1,4 +1,4 @@
-app.factory("questionSrv", function(){
+app.factory("questionSrv", function($q, $http){
 
 
     var questions = []; 
@@ -57,25 +57,7 @@ app.factory("questionSrv", function(){
   
   
   
-        function addSelected(slctd) {
-          var async = $q.defer();
-          var actorURL = "https://api.themoviedb.org/3/person/" + slctd.id + "?api_key=e26cfc12e20bd1f3f0daba440edcba63&language=en-US";
-          $http.get(actorURL).then(function(res1) {
-          actorResults = res1.data;
-          nameArr = slctd.name.split(" ");
-          firstName = nameArr[0];
-          lastName = nameArr[1];
-          birthday = actorResults.birthday;
-          picLink = "https://image.tmdb.org/t/p/w600_and_h900_bestv2/" + actorResults.profile_path;
-          pageLink = "https://www.imdb.com/name/" + actorResults.imdb_id;
-          actors.push(new Actor(slctd.id, firstName, lastName, new Date(birthday), picLink, pageLink));
-          async.resolve(actors);
-      }, function(err) {
-            console.error(err);
-            async.reject(err);
-          });
-          return async.promise;
-      }
+        
   
   return {
       getActors: getActors,
