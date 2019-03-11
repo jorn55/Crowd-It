@@ -2,8 +2,19 @@ app.controller("favQsCtrl", function($scope, questionSrv) {
 
     var temp = questionSrv.getQuestions();
 
-    
-    $scope.items = temp;
+    var myFavs = [1,2,4,7];
+
+    function myFav(qstn) {
+        return myFavs.includes(qstn.id);
+      }
+      
+    function myFunction() {
+        $scope.items = temp.filter(myFav);
+      }
+
+      myFunction();
+
+    // $scope.items = temp;
 
     $scope.quest = $scope.items[0];
 
