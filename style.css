@@ -172,6 +172,21 @@ label {
     border-color: red;
   }
 
+  .fhvrd1 {
+    border-width: 5px;
+    border-color: yellow;
+  }
+
+  .fhvrd2 {
+    border-width: 5px;
+    border-color: yellow;
+  }
+
+  .fhvrd3 {
+    border-width: 5px;
+    border-color: yellow;
+  }
+
   .not-hvrd1 {
     border-width: 0px;
   }
