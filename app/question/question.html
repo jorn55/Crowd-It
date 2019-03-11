@@ -1,29 +1,25 @@
 <h2 class="text-center">{{quest.title}}</h2>
 <p class="text-center">{{quest.description}}</p>
 <div class="card-deck">
-    <div class="card rounded-top" style="height:300px">
+    <div class="card rounded-top" ng-class="hvr1" ng-mouseleave="hvr1 = 'not-hvrd1'" ng-mouseover="hvr1 = 'hvrd1'" ng-init="hvr1 = 'not-hvrd1'" style="height:300px">
         <img class="card-img-top" style="height:180px" src={{quest.op1image}} alt="Card image">
-        <div class="card-body">
-          <h4 class="card-title">{{quest.op1title}}</h4>
-          <p class="card-text">{{quest.op1descr}}</p>
-
+        <div class="card-body row">
+          <h4 class="card-title col">{{quest.op1title}}</h4><i class="fa fa-check col text-right" aria-hidden="true"></i>
+          <p class="card-text" ng-mouseover="hvr = 'hvrd'">{{quest.op1descr}}</p>
         </div>
       </div>
-      <div class="card rounded-top" style="height:300px">
+      <div class="card rounded-top" ng-class="hvr2" ng-mouseleave="hvr2 = 'not-hvrd2'" ng-mouseover="hvr2 = 'hvrd2'" ng-init="hvr2 = 'not-hvrd2'" style="height:300px">
         <img class="card-img-top" style="height:180px" src={{quest.op2image}} alt="Card image">
-        <div class="card-body">
-          <h4 class="card-title">{{quest.op2title}}</h4>
-          <p class="card-text">{{quest.op2descr}}</p>
-
-        </div>
+        <div class="card-body row">
+            <h4 class="card-title col">{{quest.op2title}}</h4><i class="fa fa-check col text-right" aria-hidden="true"></i>
+            <p class="card-text">{{quest.op2descr}}</p>
+          </div>
       </div>
-      <div class="card rounded-top" style="height:300px">
+      <div class="card rounded-top" ng-class="hvr3" ng-mouseleave="hvr3 = 'not-hvrd3'" ng-mouseover="hvr3 = 'hvrd2'" ng-init="hvr3 = 'not-hvrd3'"style="height:300px">
         <img class="card-img-top" style="height:180px" src={{quest.op3image}} alt="Card image">
-        <div class="card-body">
-          <h4 class="card-title">{{quest.op3title}}</h4>
-          <p class="card-text">{{quest.op3descr}}</p>
-
-        </div>
+        <div class="card-body row">
+            <h4 class="card-title col">{{quest.op3title}}</h4><i class="fa fa-check col text-right" aria-hidden="true"></i>
+            <p class="card-text">{{quest.op3descr}}</p>
+          </div>
       </div>
   </div>
-  

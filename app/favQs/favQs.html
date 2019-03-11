@@ -1,4 +1,45 @@
-<crowdit-navbar></crowdit-navbar>
+<!-- <crowdit-navbar></crowdit-navbar> -->
 <main>
-    <h1>Favourites Page</h1>
+        <main>
+
+                <div class="d-flex" id="wrapper">
+              
+                  <!-- Sidebar -->
+                  <div class="bg-light border-right" id="sidebar-wrapper">
+                    <!-- <div class="sidebar-heading">Start Bootstrap </div> -->
+                    <div class="bg-dark text-light p-3"><i class="fa fa-star ifa1"></i> Favourite questions.</i></div>
+                    <div class="list-group list-group-flush anyClass">
+                      <a href="" class="list-group-item list-group-item-action bg-light" ng-repeat="item in items" ng-click="updateQuestion(item)">{{item.title}}</a>
+                    </div>
+                  </div>
+                  <!-- /#sidebar-wrapper -->
+              
+                  <!-- Page Content -->
+                  <div id="page-content-wrapper">
+                    <crowdit-navbar></crowdit-navbar>
+                    <button class="btn btn-primary" id="menu-toggle"><i class="fas fa-list-alt"></i></button>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <crowdit-question></crowdit-question>
+                    <div class="form-group">
+                      <label for="comment">Add a comment:</label>
+                      <textarea class="form-control" rows="3" id="comment"></textarea>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <button type="button" class="btn btn-primary">Join the Crowd!</button>
+                      </div>
+                      <div class="col">
+                        <a class="nav-link" href=""><i class="fa fa-star ifa1"></i></a>
+                      </div>
+                    </div>"
+                  </div>
+                  <!-- /#wrapper -->
+              
+                  <!-- Bootstrap core JavaScript -->
+              
+                </div>
+              </main>
 </main>

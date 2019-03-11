@@ -156,3 +156,30 @@ label {
     font-size: 12px;
     color: #777;
   }
+
+  .hvrd1 {
+    border-width: 5px;
+    border-color: red;
+  }
+
+  .hvrd2 {
+    border-width: 5px;
+    border-color: red;
+  }
+
+  .hvrd3 {
+    border-width: 5px;
+    border-color: red;
+  }
+
+  .not-hvrd1 {
+    border-width: 0px;
+  }
+
+  .not-hvrd2 {
+    border-width: 0px;
+  }
+
+  .not-hvrd3 {
+    border-width: 0px;
+  }
