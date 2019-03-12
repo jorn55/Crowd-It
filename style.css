@@ -198,3 +198,8 @@ label {
   .not-hvrd3 {
     border-width: 0px;
   }
+
+  .clicked {
+    background-color: aquamarine;
+    border-color: blue;
+  }
