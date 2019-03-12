@@ -44,11 +44,17 @@ app.factory("questionSrv", function($q, $http){
     // }
     //   return async.promise;
     //   }
-        
-    
+    var items = [];
+    var wasDone = false;
+    var currentId = 8;
+
+
     function getQuestions() {
-  
-    var items = [
+  if (wasDone) {
+    return items;
+  } else {
+    wasDone = true;
+    items = [
       {
           "id" : 1,
           "owner" : 101,
@@ -189,10 +195,19 @@ app.factory("questionSrv", function($q, $http){
 
     return items;
   }
-       
+  }
+
+  function addQuestion(owner, topic, title, description, 
+    op1image, op1title, op1descr, op2image, op2title, op2descr, op3image, op3title, op3descr) {
+    var id = currentId++;
+    items.push(new Question(id, owner, topic, title, description, op1image, op1title, op1descr, op2image, op2title, op2descr, op3image, op3title, op3descr, true));
+    
+    return items;
+  }
   
   return {
-    getQuestions: getQuestions
+    getQuestions: getQuestions,
+    addQuestion : addQuestion
   }
   
   });

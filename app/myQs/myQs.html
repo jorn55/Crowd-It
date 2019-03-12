@@ -56,59 +56,59 @@
                 <form>
                     <div class="form-group">
                         <label for="question">Question Text:</label>
-                        <input type="text" class="form-control" id="question">
+                        <input type="text" class="form-control" id="question" ng-model="title">
                     </div>
                     <div class="form-group">
                         <label for="descr">Description:</label>
-                        <input type="text" class="form-control" id="descr">
+                        <input type="text" class="form-control" id="descr" ng-model="description">
                     </div>
                     <fieldset>
                             <legend>Option #1:</legend>
                     <div class="form-group">
                         <label for="option1">Option Text:</label>
-                        <input type="text" class="form-control" id="option1">
+                        <input type="text" class="form-control" id="option1" ng-model="op1title">
                     </div>
                     <div class="form-group">
                         <label for="descr1">Description:</label>
-                        <input type="text" class="form-control" id="descr1">
+                        <input type="text" class="form-control" id="descr1" ng-model="op1descr">
                     </div>
                     <div class="form-group">
                             <label for="image1">Image:</label>
-                            <input type="text" class="form-control" id="image1">
+                            <input type="text" class="form-control" id="image1" ng-model="op1image">
                     </div>
                     </fieldset>
                     <fieldset>
                             <legend>Option #2:</legend>
                     <div class="form-group">
                         <label for="option2">Option Text:</label>
-                        <input type="text" class="form-control" id="option2">
+                        <input type="text" class="form-control" id="option2" ng-model="op2title">
                     </div>
                     <div class="form-group">
                         <label for="descr2">Description:</label>
-                        <input type="text" class="form-control" id="descr2">
+                        <input type="text" class="form-control" id="descr2" ng-model="op2descr">
                     </div>
                     <div class="form-group">
                             <label for="image2">Image:</label>
-                            <input type="text" class="form-control" id="image2">
+                            <input type="text" class="form-control" id="image2" ng-model="op2image">
                     </div>
                     </fieldset>
                     <fieldset>
                             <legend>Option #3:</legend>
                     <div class="form-group">
                         <label for="option3">Option Text:</label>
-                        <input type="text" class="form-control" id="option3">
+                        <input type="text" class="form-control" id="option3" ng-model="op3title">
                     </div>
                     <div class="form-group">
                         <label for="descr3">Description:</label>
-                        <input type="text" class="form-control" id="descr3">
+                        <input type="text" class="form-control" id="descr3" ng-model="op3descr">
                     </div>
                     <div class="form-group">
                             <label for="image3">Image:</label>
-                            <input type="text" class="form-control" id="image3">
+                            <input type="text" class="form-control" id="image3" ng-model="op3image">
                     </div>
                     </fieldset>
 
-                    <button type="button" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-primary" ng-click="addQ()" data-dismiss="modal">Submit</button>
                 </form>
 
 

@@ -12,7 +12,18 @@ app.controller("myQsCtrl", function($scope, questionSrv) {
         $scope.items = temp.filter(myQuestion);
       }
 
-      myFunction();
+    myFunction();
+
+    $scope.addQ = function() {
+        var temp = questionSrv.addQuestion(myId, "topic1", $scope.title, $scope.description, 
+        $scope.op1image, $scope.op1title, $scope.op1descr, $scope.op2image, $scope.op2title, $scope.op2descr, $scope.op3image, $scope.op3title, $scope.op3descr); 
+        function myFunction() {
+            $scope.items = temp.filter(myQuestion);
+          }
+        myFunction();
+    };
+
+
 
     // $scope.items = temp;
 
@@ -27,20 +38,7 @@ $scope.updateQuestion = function(item) {
   $scope.quest = item;
   // console.log(item);
 }
+
+
 });
 
-this.id = id;
-            this.owner = owner;
-            this.topic = topic;
-            this.title = title;
-            this.description = description;
-            this.op1image = op1image;
-            this.op1title = op1title;
-            this.op1descr = op1descr;
-            this.op2image = op2image;
-            this.op2title = op2title;
-            this.op2descr = op2descr;
-            this.op3image = op3image;
-            this.op3title = op3title;
-            this.op3descr = op3descr;
-            this.isActive = isActive;
