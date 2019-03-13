@@ -27,7 +27,30 @@
     <!-- Custom styles for this template -->
     <link href="css/simple-sidebar.css" rel="stylesheet">
   
+    <script type="text/javascript" src="https://npmcdn.com/parse@2.1.0/dist/parse.min.js"></script>
+    
+    <script src="node_modules/parse/dist/parse.min.js"></script>
 
+    <script>
+    Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
+    Parse.initialize(
+      'JAYAuejSyvPoVWvooYgibEIxZGdFKoVPLIPTS8Yz', // This is your Application ID
+      'kszDs8kjRckTQk67DsilSnzk4EbCtN3jTGlQoWaY' // This is your Javascript key
+    );
+    </script>
+
+    <script>
+    var user = new Parse.User();
+user.save({
+  username: document.getElementById("username").value,
+  email: document.getElementById("email").value,
+  password: document.getElementById("password").value
+}).then(function(response) {
+  alert('New object create with success! ObjectId: ' + response.id + ', '+ user.get('username'));
+}).catch(function(error) {
+  alert('Error: ' + error.message);
+});
+    </script>
 
   <link rel="stylesheet" href="style.css">
   <script src="app/crowditApp.js"></script>

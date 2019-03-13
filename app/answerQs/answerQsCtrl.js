@@ -59,8 +59,13 @@ app.controller("answerQsCtrl", function ($scope, questionSrv) {
     } else {
       var voteTemp = questionSrv.addVote($scope.quest.id, myId, slctd, $scope.cmnt);
       answered.push($scope.quest.id);
+      $scope.selected = 0;
+      $scope.cmnt = "";
       filterForMe();
       $scope.quest = $scope.items[0];
+      $scope.clk1 = "";
+      $scope.clk2 = "";
+      $scope.clk3 = "";
     }
   }
 
