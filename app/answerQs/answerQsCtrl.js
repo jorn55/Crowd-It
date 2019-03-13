@@ -17,6 +17,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv) {
   var myId = 101;
   var answered = [];
   var myStars = [];
+  $scope.cmnt = "";
 
   $scope.selected = 0;
 
@@ -42,6 +43,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv) {
   filterForMe();
 
   $scope.quest = $scope.items[0];
+  $scope.isStarred = "";
 
   $scope.cs1 = "hvrd1";
   $scope.cs2 = "hvrd2";
@@ -52,13 +54,23 @@ app.controller("answerQsCtrl", function ($scope, questionSrv) {
   }
 
   $scope.answerQuestion = function (slctd) {
-    $scope.quest = item;
+    if (slctd === 0) {
+      alert("You must select on option to vote!!");
+    } else {
+      var voteTemp = questionSrv.addVote($scope.quest.id, myId, slctd, $scope.cmnt);
+      answered.push($scope.quest.id);
+      filterForMe();
+    }
   }
 
   $scope.starQuestion = function () {
-    // myStars = questionSrv.addStar(myId, $scope.quest.Id);
-    myStars.push($scope.quest.id)
-    $scope.isStarred = checkStarred();
+    if ($scope.isStarred === "") {
+      myStars.push($scope.quest.id)
+      $scope.isStarred = checkStarred();
+    } else {
+      $scope.isStarred = "";
+      myStars.splice(myStars.indexOf($scope.quest.id), 1);
+    }
   }
 
   function checkStarred() {
