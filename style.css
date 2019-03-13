@@ -4,7 +4,7 @@ body {
 
 .myCard {
     background-color: #ebbb4a;
-    border: 4 solid #3a3a3c;
+    /* border: 4 solid #3a3a3c; */
 }
 
 h1 {
@@ -158,21 +158,21 @@ label {
   }
 
   .hvrd1 {
-
-    border-width: 5px;
-    border-color: red;
+    background-color: lime;
+    /* border-width: 5px;
+    border-color: red; */
   }
 
   .hvrd2 {
-
-    border-width: 5px;
-    border-color: red;
+    background-color: lime;
+    /* border-width: 5px;
+    border-color: red; */
   }
 
   .hvrd3 {
-
-    border-width: 5px;
-    border-color: red;
+    background-color: lime;
+    /* border-width: 5px;
+    border-color: red; */
   }
 
   .fhvrd1 {
@@ -193,7 +193,7 @@ label {
     border-color: yellow;
   }
 
-  .not-hvrd1 {
+  /* .not-hvrd1 {
 
     border-width: 0px;
   }
@@ -206,13 +206,17 @@ label {
   .not-hvrd3 {
 
     border-width: 0px;
-  }
+  } */
 
   .clicked {
     background-color: aquamarine;
-    border-color: blue;
+    /* border-color: blue; */
   }
 
   .stard {
     color: #ebbb4a;
+  }
+
+  .bx {
+    box-sizing: border-box;
   }

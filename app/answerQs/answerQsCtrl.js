@@ -60,6 +60,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv) {
       var voteTemp = questionSrv.addVote($scope.quest.id, myId, slctd, $scope.cmnt);
       answered.push($scope.quest.id);
       filterForMe();
+      $scope.quest = $scope.items[0];
     }
   }
 
