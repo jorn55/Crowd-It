@@ -10,16 +10,23 @@ app.factory("questionSrv", function ($q, $http) {
     this.topic = topic;
     this.title = title;
     this.description = description;
-    this.op1image = op1image;
-    this.op1title = op1title;
-    this.op1descr = op1descr;
-    this.op2image = op2image;
-    this.op2title = op2title;
-    this.op2descr = op2descr;
-    this.op3image = op3image;
-    this.op3title = op3title;
-    this.op3descr = op3descr;
+    this.options = [];
+    // this.op1image = op1image;
+    // this.op1title = op1title;
+    // this.op1descr = op1descr;
+    // this.op2image = op2image;
+    // this.op2title = op2title;
+    // this.op2descr = op2descr;
+    // this.op3image = op3image;
+    // this.op3title = op3title;
+    // this.op3descr = op3descr;
     this.isActive = isActive;
+  }
+
+  function Option(image, title, description) {
+    this.image = image;
+    this.title = title;
+    this.description = description;
   }
 
 
@@ -31,7 +38,7 @@ app.factory("questionSrv", function ($q, $http) {
     this.comment = comment;
   }
 
-  function Person(id, name, email, password, stars) {
+  function User(id, name, email, password, stars) {
     this.id = id;
     this.name = name;
     this.email = email;
@@ -61,26 +68,47 @@ app.factory("questionSrv", function ($q, $http) {
   // }
   //   return async.promise;
   //   }
+
+
   var items = [];
   var votes = [];
-  var persons = [];
-  var wasDone = false;
+  var users = [];
+  var wasDoneQ = false;
+  var wasDoneP = false;
+  var wasDoneV = false;
   var currentQId = 8;
   var currentVId = 0;
   var currentPId = 0;
 
 
   function getQuestions() {
-    if (wasDone) {
+    if (wasDoneQ) {
       return items;
     } else {
-      wasDone = true;
+      wasDoneQ = true;
       items = [{
           "id": 1,
           "owner": 101,
           "topic": "travel",
-          "title": "Which country is the best?",
+          "title": "101-Which country is the best?",
           "description": "Which country is the best to live in from these options?",
+          // "options": [
+          //   {
+          //     "image" : "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Israel.svg/1200px-Flag_of_Israel.svg.png",
+          //     "title" : "Israel",
+          //     "description" : "A middle eastern country with lots of sun and beaches."
+          //   },
+          //   {
+          //     "image" : "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1200px-Flag_of_the_United_States.svg.png",
+          //     "title" : "USA",
+          //     "description" : "The richest country in the world, land of endless opportunities."
+          //   },
+          //   {
+          //     "image" : "https://upload.wikimedia.org/wikipedia/commons/thumb/b/be/Flag_of_Iran_%28official%29.svg/2000px-Flag_of_Iran_%28official%29.svg.png",
+          //     "title" : "Iran",
+          //     "description" : "Words escape me."
+          //   }
+          // ],
           "op1image": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Flag_of_Israel.svg/1200px-Flag_of_Israel.svg.png",
           "op1title": "Israel",
           "op1descr": "A middle eastern country with lots of sun and beaches.",
@@ -96,7 +124,7 @@ app.factory("questionSrv", function ($q, $http) {
           "id": 2,
           "owner": 102,
           "topic": "entertainment",
-          "title": "Which movie should I see this weekend?",
+          "title": "102-Which movie should I see this weekend?",
           "description": "I can't decide between these three movies. Please help!",
           "op1image": "https://static1.squarespace.com/static/51b3dc8ee4b051b96ceb10de/t/5c2274e08985837cb690b246/1545762021789/?format=2500w",
           "op1title": "Captain Marvel",
@@ -113,7 +141,7 @@ app.factory("questionSrv", function ($q, $http) {
           "id": 3,
           "owner": 103,
           "topic": "fashion",
-          "title": "Which shoes should I buy?",
+          "title": "103-Which shoes should I buy?",
           "description": "Which country is the best to live in from these options?",
           "op1image": "https://media0.giphy.com/media/QpWDP1YMziaQw/giphy.gif",
           "op1title": "Israel",
@@ -130,7 +158,7 @@ app.factory("questionSrv", function ($q, $http) {
           "id": 4,
           "owner": 102,
           "topic": "food",
-          "title": "Which cake should I make?",
+          "title": "102-Which cake should I make?",
           "description": "Which country is the best to live in from these options?",
           "op1image": "https://media0.giphy.com/media/QpWDP1YMziaQw/giphy.gif",
           "op1title": "Israel",
@@ -147,7 +175,7 @@ app.factory("questionSrv", function ($q, $http) {
           "id": 5,
           "owner": 103,
           "topic": "pets",
-          "title": "Which dog should I adopt?",
+          "title": "103-Which dog should I adopt?",
           "description": "Which country is the best to live in from these options?",
           "op1image": "https://media0.giphy.com/media/QpWDP1YMziaQw/giphy.gif",
           "op1title": "Israel",
@@ -164,7 +192,7 @@ app.factory("questionSrv", function ($q, $http) {
           "id": 6,
           "owner": 102,
           "topic": "sports",
-          "title": "Who is going to win the Stanley Cup this year?",
+          "title": "102-Who is going to win the Stanley Cup this year?",
           "description": "Which country is the best to live in from these options?",
           "op1image": "https://media0.giphy.com/media/QpWDP1YMziaQw/giphy.gif",
           "op1title": "Israel",
@@ -181,7 +209,7 @@ app.factory("questionSrv", function ($q, $http) {
           "id": 7,
           "owner": 101,
           "topic": "travel",
-          "title": "Which country is the best?",
+          "title": "101-Which country is the best?",
           "description": "Which country is the best to live in from these options?",
           "op1image": "https://media0.giphy.com/media/QpWDP1YMziaQw/giphy.gif",
           "op1title": "Israel",
@@ -198,7 +226,7 @@ app.factory("questionSrv", function ($q, $http) {
           "id": 8,
           "owner": 101,
           "topic": "travel",
-          "title": "Which country is the best?",
+          "title": "101-Which country is the best?",
           "description": "Which country is the best to live in from these options?",
           "op1image": "https://media0.giphy.com/media/QpWDP1YMziaQw/giphy.gif",
           "op1title": "Israel",
@@ -217,6 +245,33 @@ app.factory("questionSrv", function ($q, $http) {
     }
   }
 
+  function getUsers() {
+    if (wasDoneP) {
+      return users;
+    } else {
+      wasDoneP = true;
+      users = [{
+        "id": 101,
+        "name": "Peter Parker",
+        "email": "spidey@avengers.org",
+        "password": "1234",
+        "stars": [1,3],
+        "answered" : []
+      },
+      {
+        "id": 102,
+        "name": "Bruce Wayne",
+        "email": "Batsey@jla.org",
+        "password": "1234",
+        "stars": [5,6],
+        "answered" : []
+      }
+    ];
+    return users;
+  }
+}
+
+
   function addQuestion(owner, topic, title, description,
     op1image, op1title, op1descr, op2image, op2title, op2descr, op3image, op3title, op3descr) {
     var id = currentQId++;
@@ -232,17 +287,23 @@ app.factory("questionSrv", function ($q, $http) {
     return votes;
   }
 
-  function addPerson(name, email, password) {
+  function addUser(name, email, password) {
     var id = currentPId++;
     var stars = [];
-    persons.push(new Person(id, name, email, password, stars));
+    users.push(new User(id, name, email, password, stars));
 
     return votes;
   }
 
+  // function addStar(pId, qId) {
+  //   var pos = users.map(function(e) { return e.id; }).indexOf(pId);
+  //   users[pos].stars.push(qId);
+  // } 
+
   function addStar(pId, qId) {
-    var pos = persons.map(function(e) { return e.id; }).indexOf(pId);
-    persons[pos].stars.push(qId);
+    console.log(users);
+    var pos = users.map(function(e) { return e.id; }).indexOf(pId);
+    users[pos].stars.push(qId);
   } 
 
 
@@ -250,8 +311,9 @@ app.factory("questionSrv", function ($q, $http) {
     getQuestions: getQuestions,
     addQuestion: addQuestion,
     addVote : addVote,
-    addPerson : addPerson,
-    addStar : addStar
+    addUser : addUser,
+    addStar : addStar,
+    getUsers : getUsers
   }
 
 });

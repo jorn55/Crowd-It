@@ -158,48 +158,61 @@ label {
   }
 
   .hvrd1 {
+    box-sizing: content-box;
     border-width: 5px;
     border-color: red;
   }
 
   .hvrd2 {
+    box-sizing: content-box;
     border-width: 5px;
     border-color: red;
   }
 
   .hvrd3 {
+    box-sizing: content-box;
     border-width: 5px;
     border-color: red;
   }
 
   .fhvrd1 {
+    box-sizing: border-box;
     border-width: 5px;
     border-color: yellow;
   }
 
   .fhvrd2 {
+    box-sizing: border-box;
     border-width: 5px;
     border-color: yellow;
   }
 
   .fhvrd3 {
+    box-sizing: border-box;
     border-width: 5px;
     border-color: yellow;
   }
 
   .not-hvrd1 {
+    box-sizing: content-box;
     border-width: 0px;
   }
 
   .not-hvrd2 {
+    box-sizing: content-box;
     border-width: 0px;
   }
 
   .not-hvrd3 {
+    box-sizing: content-box;
     border-width: 0px;
   }
 
   .clicked {
     background-color: aquamarine;
     border-color: blue;
+  }
+
+  .stard {
+    color: #ebbb4a;
   }

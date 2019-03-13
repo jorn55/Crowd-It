@@ -4,23 +4,23 @@ app.controller("myQsCtrl", function($scope, questionSrv) {
 
     var myId = 101;
 
-    function myQuestion(qstn) {
+    function myQuestions(qstn) {
         return (qstn.owner === myId);
       }
       
-    function myFunction() {
-        $scope.items = temp.filter(myQuestion);
+    function filterMine() {
+        $scope.items = temp.filter(myQuestions);
       }
 
-    myFunction();
+      filterMine();
 
     $scope.addQ = function() {
         var temp = questionSrv.addQuestion(myId, "topic1", $scope.title, $scope.description, 
         $scope.op1image, $scope.op1title, $scope.op1descr, $scope.op2image, $scope.op2title, $scope.op2descr, $scope.op3image, $scope.op3title, $scope.op3descr); 
-        function myFunction() {
-            $scope.items = temp.filter(myQuestion);
+        function filterMine() {
+            $scope.items = temp.filter(myQuestions);
           }
-        myFunction();
+          filterMine();
     };
 
 

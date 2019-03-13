@@ -8,6 +8,93 @@ $(document).ready(function () {
 
 app.controller("answerQsCtrl", function ($scope, questionSrv) {
 
+
+
+  var temp = questionSrv.getQuestions();
+  // var qusers = questionSrv.getUsers();
+  // $scope.items = temp;
+
+  var myId = 101;
+  var answered = [];
+  var myStars = [];
+
+  $scope.selected = 0;
+
+
+  function notMyQuestions(qstn) {
+    return (qstn.owner !== myId);
+  }
+
+  function notActive(qstn) {
+    return (qstn.isActive);
+  }
+
+  function answeredByMe(qstn) {
+    return !(answered.includes(qstn.id));
+  }
+
+  function filterForMe() {
+    var temp1 = temp.filter(notActive);
+    var temp2 = temp1.filter(answeredByMe);
+    $scope.items = temp2.filter(notMyQuestions);
+  }
+
+  filterForMe();
+
+  $scope.quest = $scope.items[0];
+
+  $scope.cs1 = "hvrd1";
+  $scope.cs2 = "hvrd2";
+  $scope.cs3 = "hvrd3";
+
+  $scope.updateQuestion = function (item) {
+    $scope.quest = item;
+  }
+
+  $scope.answerQuestion = function (slctd) {
+    $scope.quest = item;
+  }
+
+  $scope.starQuestion = function () {
+    // myStars = questionSrv.addStar(myId, $scope.quest.Id);
+    myStars.push($scope.quest.id)
+    $scope.isStarred = checkStarred();
+  }
+
+  function checkStarred() {
+    if (myStars.includes($scope.quest.id)) {
+      return "stard";
+    } else {
+      return "";
+    }
+  }
+
+  $scope.select = function (option) {
+    if (option === 1 && $scope.selected !== option) {
+      $scope.clk1 = " clicked";
+      $scope.clk2 = "";
+      $scope.clk3 = "";
+      $scope.selected = 1;
+    } else if (option === 2 && $scope.selected !== option) {
+      $scope.clk2 = " clicked";
+      $scope.clk1 = "";
+      $scope.clk3 = "";
+      $scope.selected = 2;
+    } else if (option === 3 && $scope.selected !== option) {
+      $scope.clk3 = " clicked";
+      $scope.clk2 = "";
+      $scope.clk1 = "";
+      $scope.selected = 3;
+    } else {
+      $scope.clk1 = "";
+      $scope.clk2 = "";
+      $scope.clk3 = "";
+      $scope.selected = 0;
+    }
+  }
+});
+
+
   //   $scope.items = ["Which country is the best?", 
   //   "Which movie should I see this weekend?", 
   //   "Which dress should I buy?",
@@ -27,35 +114,3 @@ app.controller("answerQsCtrl", function ($scope, questionSrv) {
   // ];
 
   // $scope.items = [];
-
-  var temp = questionSrv.getQuestions();
-  $scope.items = temp;
-
-  $scope.quest = $scope.items[0];
-
-  $scope.cs1 = "hvrd1";
-  $scope.cs2 = "hvrd2";
-  $scope.cs3 = "hvrd3";
-
-  $scope.updateQuestion = function (item) {
-    $scope.quest = item;
-  }
-
-  $scope.select = function (option) {
-    if (option === 1) {
-      $scope.clk1 = " clicked";
-      $scope.clk2 = "";
-      $scope.clk3 = "";
-    }
-    if (option === 2) {
-      $scope.clk2 = " clicked";
-      $scope.clk1 = "";
-      $scope.clk3 = "";
-    }
-    if (option === 3) {
-      $scope.clk3 = " clicked";
-      $scope.clk2 = "";
-      $scope.clk1 = "";
-    }
-  }
-});
