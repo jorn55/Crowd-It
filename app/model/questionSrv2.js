@@ -28,8 +28,37 @@ app.factory("questionSrv", function ($q, $http) {
       this.comment = parseVote.get("comment");
     }
   
+    function getActiveUserQuestions() {
+        var async = $q.defer();
+        var activeUserId = userSrv.getActiveUser().id;
 
+        var questions = [];
+
+        const RecipeParse = Parse.Object.extend('Recipe');
+        const query = new Parse.Query(RecipeParse);
+        query.equalTo("userId",  Parse.User.current());
+        query.find().then(function(results) {
+
+          for (var i = 0; i < results.length; i++) {
+            recipes.push(new Recipe(results[i]));
+          }
+
+          async.resolve(recipes);
+
+        }, function(error) {
+            $log.error('Error while fetching Recipe', error);
+            async.reject(error);
+        });
+
+        return async.promise;
+    }
   
+
+
+
+
+
+
   
     var items = [];
     var votes = [];
@@ -44,31 +73,7 @@ app.factory("questionSrv", function ($q, $http) {
   
 
   
-    function getUsers() {
-      if (wasDoneP) {
-        return users;
-      } else {
-        wasDoneP = true;
-        users = [{
-          "id": 101,
-          "name": "Peter Parker",
-          "email": "spidey@avengers.org",
-          "password": "1234",
-          "stars": [1,3],
-          "answered" : []
-        },
-        {
-          "id": 102,
-          "name": "Bruce Wayne",
-          "email": "Batsey@jla.org",
-          "password": "1234",
-          "stars": [5,6],
-          "answered" : []
-        }
-      ];
-      return users;
-    }
-  }
+
   
   function createQuestion(owner, topic, title, description, options) {
     var async = $q.defer();

@@ -10,7 +10,8 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
 
 
-  var temp = questionSrv.getQuestions();
+  var temp = questionSrv.getActiveUserQuestions();
+  var activeUserId = userSrv.getActiveUser().id;
   // var qusers = questionSrv.getUsers();
   // $scope.items = temp;
 
