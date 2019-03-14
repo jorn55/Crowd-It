@@ -32,6 +32,7 @@
 </nav>
     <div class="container-fluid">
         <div class="row no-gutter">
+            
           <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"><crowdit-question></crowdit-question></div>
           <div class="col-md-8 col-lg-6">
             <div class="login d-flex align-items-center py-5">
@@ -39,15 +40,16 @@
                     
                 <div class="row">
                   <div class="col-md-9 col-lg-8 mx-auto">
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#demo"> Sign Up </button>
                     <h3 class="login-heading mb-4">Welcome!</h3>
                     <form>
                       <div class="form-label-group">
-                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
+                        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" ng-model="email" required autofocus>
                         <label for="inputEmail">Email address</label>
                       </div>
       
                       <div class="form-label-group">
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password" ng-model="pwd" required>
                         <label for="inputPassword">Password</label>
                       </div>
       
@@ -55,7 +57,7 @@
                         <input type="checkbox" class="custom-control-input" id="customCheck1">
                         <label class="custom-control-label" for="customCheck1">Remember password</label>
                       </div>
-                      <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" type="submit">Sign in</button>
+                      <button class="btn btn-lg btn-primary btn-block btn-login text-uppercase font-weight-bold mb-2" ng-click="login()">Sign in</button>
                       <div class="text-center">
                         <a class="small" href="#">Forgot password?</a></div>
                     </form>
@@ -67,3 +69,53 @@
         </div>
       </div>
 </main>
+
+<div class="modal" id="demo">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+              <h4 class="modal-title">Sign Up</h4>
+              <button type="button" class="close" data-dismiss="modal">�</button>
+          </div>
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form action="action_page.php" style="border:1px solid #ccc">
+              <div class="container">
+                <p>Please fill in this form to create an account.</p>
+                <hr>
+            
+                <label for="navbar-expand-md"><b>User Name</b></label>
+                <input type="text" placeholder="Enter User Name" name="name" required><br>
+                
+                <label for="email"><b>Email</b></label>
+                <input type="text" placeholder="Enter Email" name="email" required><br>
+            
+                <label for="psw"><b>Password</b></label>
+                <input type="password" placeholder="Enter Password" name="psw" required><br>
+            
+                <label for="psw-repeat"><b>Repeat Password</b></label>
+                <input type="password" placeholder="Repeat Password" name="psw-repeat" required><br>
+            
+                <label>
+                  <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
+                </label>
+            
+                <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
+            
+                <div class="clearfix">
+                  <button type="button" class="cancelbtn">Cancel</button>
+                  <button type="submit" class="signupbtn">Sign Up</button>
+                </div>
+              </div>
+            </form>
+
+
+          </div>
+          <!-- Modal footer -->
+          <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+  </div>
+</div>

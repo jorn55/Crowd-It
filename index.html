@@ -1,63 +1,52 @@
 <!DOCTYPE html>
 <html ng-app="crowditApp">
 
-<head>    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-route.js"></script>
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous"> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.6/angular-route.js"></script>
 
 
-    <!-- jQuery library -->
-    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
-    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
+  <!-- jQuery library -->
+  <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+  <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
+
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
   <!-- <script src="script.js"></script> -->
 
-    <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="css/simple-sidebar.css" rel="stylesheet">
-  
-    <script type="text/javascript" src="https://npmcdn.com/parse@2.1.0/dist/parse.min.js"></script>
-    
-    <script src="node_modules/parse/dist/parse.min.js"></script>
+  <!-- Custom styles for this template -->
+  <link href="css/simple-sidebar.css" rel="stylesheet">
 
-    <script>
+
+  <script src="node_modules/parse/dist/parse.min.js"></script>
+
+  <script>
     Parse.serverURL = 'https://parseapi.back4app.com'; // This is your Server URL
     Parse.initialize(
       'JAYAuejSyvPoVWvooYgibEIxZGdFKoVPLIPTS8Yz', // This is your Application ID
       'kszDs8kjRckTQk67DsilSnzk4EbCtN3jTGlQoWaY' // This is your Javascript key
     );
-    </script>
+  </script>
 
-    <script>
-    var user = new Parse.User();
-user.save({
-  username: document.getElementById("username").value,
-  email: document.getElementById("email").value,
-  password: document.getElementById("password").value
-}).then(function(response) {
-  alert('New object create with success! ObjectId: ' + response.id + ', '+ user.get('username'));
-}).catch(function(error) {
-  alert('Error: ' + error.message);
-});
-    </script>
+  
 
   <link rel="stylesheet" href="style.css">
   <script src="app/crowditApp.js"></script>
   <script src="app/navbar/navBarDir.js"></script>
   <script src="app/question/questionDir.js"></script>
   <script src="app/question/questionCtrl.js"></script>
-  <script src="app/question/questionSrv.js"></script>
+  <script src="app/model/questionSrv.js"></script>
+  <script src="app/model/userSrv.js"></script>
   <script src="app/answerQs/answerQsCtrl.js"></script>
   <script src="app/favQs/favQsCtrl.js"></script>
   <script src="app/myQs/myQsCtrl.js"></script>
@@ -80,11 +69,11 @@ user.save({
 
 <body>
   <ng-view></ng-view>
-    <!-- <crowdit-navbar></crowdit-navbar>
+  <!-- <crowdit-navbar></crowdit-navbar>
       <h1 class="text-center">Crowd It! beta 0.01</h1> -->
-      
+
 </body>
 
-  </html>
+</html>
 
-    <!-- yossi horn -->
+<!-- yossi horn -->

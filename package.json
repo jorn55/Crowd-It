@@ -27,7 +27,8 @@
     },
     "dependencies": {
         "bootstrap": "4.2.1",
-        "jquery": "3.3.1"
+        "jquery": "3.3.1",
+        "parse": "^2.2.1"
     },
     "devDependencies": {
         "browser-sync": "2.26.3",

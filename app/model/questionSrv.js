@@ -3,10 +3,10 @@ app.factory("questionSrv", function ($q, $http) {
 
   var questions = [];
 
-  function Question(id, owner, topic, title, description, op1image, op1title, op1descr, op2image, op2title, op2descr, op3image, op3title, op3descr, isActive) {
+  function Question(id, userId, topic, title, description, op1image, op1title, op1descr, op2image, op2title, op2descr, op3image, op3title, op3descr, isActive) {
 
     this.id = id;
-    this.owner = owner;
+    this.userId = userId;
     this.topic = topic;
     this.title = title;
     this.description = description;
@@ -38,13 +38,15 @@ app.factory("questionSrv", function ($q, $http) {
     this.comment = comment;
   }
 
-  function User(id, name, email, password, stars) {
-    this.id = id;
-    this.name = name;
-    this.email = email;
-    this.password = password;
-    this.stars = stars;
-  }
+  // function User(id, name, email, password, stars) {
+  //   this.id = id;
+  //   this.name = name;
+  //   this.email = email;
+  //   this.password = password;
+  //   this.stars = stars;
+  // }
+
+
 
 
 
@@ -269,6 +271,35 @@ app.factory("questionSrv", function ($q, $http) {
     ];
     return users;
   }
+}
+
+function createQuestion(owner, topic, title, description, options) {
+  var async = $q.defer();
+
+  const RecipParse = Parse.Object.extend('Recipe');
+  const newRecipe = new RecipeParse();
+  
+  newRecipe.set('name', name);
+  newRecipe.set('description',description);
+  newRecipe.set('image', new Parse.File(name+".jpg", { base64: img }));
+  newRecipe.set('ingredients', ingredients);
+  newRecipe.set('steps', steps);
+  newRecipe.set('duration', duration);
+  newRecipe.set('userId', Parse.User.current());
+  
+  newRecipe.save().then(
+    function(result) {
+      $log.info('Recipe created', result);
+      var newRecipe = new Recipe(result);
+      async.resolve(newRecipe);
+    },
+    function(error) {
+      $log.error('Error while creating Recipe: ', error);
+      async.reject(error);
+    }
+  );        
+
+  return async.promise;
 }
 
 

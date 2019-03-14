@@ -1,4 +1,4 @@
-app.controller("questionCtrl", function($scope) {
+app.controller("questionCtrl", function($scope, userSrv) {
     $scope.isUserLoggedIn = true;
     // $scope.isUserLoggedIn = function() {
     //     return userSrv.isLoggedIn();
