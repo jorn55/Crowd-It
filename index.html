@@ -38,6 +38,22 @@
     );
   </script>
 
+  <script>
+  const user = new Parse.User()
+user.set('username', 'joeblow');
+user.set('email', 'aa@bb.com');
+user.set('favourites', new Parse.Object(["Question"]));
+user.set('password', '#Password123');
+
+user.signUp().then((user) => {
+  if (typeof document !== 'undefined') document.write(`User signed up: ${JSON.stringify(user)}`);
+  console.log('User signed up', user);
+}).catch(error => {
+  if (typeof document !== 'undefined') document.write(`Error while signing up user: ${JSON.stringify(error)}`);
+  console.error('Error while signing up user', error);
+});
+  </script>
+
   
 
   <link rel="stylesheet" href="style.css">

@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
 
-app.controller("answerQsCtrl", function ($scope, questionSrv) {
+app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
 
 
@@ -20,6 +20,8 @@ app.controller("answerQsCtrl", function ($scope, questionSrv) {
   $scope.cmnt = "";
 
   $scope.selected = 0;
+
+  $scope.userName = userSrv.getActiveUser();
 
 
   function notMyQuestions(qstn) {
