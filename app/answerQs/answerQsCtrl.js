@@ -17,7 +17,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     var myStars = [];
     $scope.cmnt = "";
 
-    $scope.selected = 0;
+    $scope.selected = -1;
 
     $scope.activeUser = userSrv.getActiveUser();
 
@@ -43,6 +43,19 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     }, function (err) {
         $log.error(err);
     })
+
+
+    $scope.makeVote = function() {
+        console.log("voting" + $scope.quest.userId);
+        questionSrv.addMyVote($scope.quest.userId, $scope.selected, $scope.cmnt).then(function() {
+            console.log("voted");
+        }, function(err) {
+            $log.error(err);
+        })
+    };
+
+
+    // questionSrv.addMyVote(question, voteOption, comment)
 
     // questionSrv.getActiveUserQuestions().then(function (questions) {
     //     var myFavs = questions.favourites;
@@ -82,7 +95,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
         } else {
             var voteTemp = questionSrv.addVote($scope.quest.id, myId, slctd, $scope.cmnt);
             answered.push($scope.quest.id);
-            $scope.selected = 0;
+            $scope.selected = -1;
             $scope.cmnt = "";
             filterForMe();
             $scope.quest = $scope.items[0];
@@ -91,6 +104,9 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
             $scope.clk3 = "";
         }
     }
+
+
+    
 
     $scope.starQuestion = function () {
         if ($scope.isStarred === "") {
@@ -130,8 +146,9 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
             $scope.clk1 = "";
             $scope.clk2 = "";
             $scope.clk3 = "";
-            $scope.selected = 0;
+            $scope.selected = -1;
         }
+        console.log("selected" + $scope.selected);
     }
 });
 
