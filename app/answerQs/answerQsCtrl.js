@@ -9,9 +9,9 @@ $(document).ready(function () {
 app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
 
-
-  var temp = questionSrv.getActiveUserQuestions();
   var activeUserId = userSrv.getActiveUser().id;
+  var temp = questionSrv.getActiveUserQuestions();
+  
   // var qusers = questionSrv.getUsers();
   // $scope.items = temp;
 
@@ -22,7 +22,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
   $scope.selected = 0;
 
-  $scope.userName = userSrv.getActiveUser();
+  $scope.activeUser = userSrv.getActiveUser();
 
 
   function notMyQuestions(qstn) {

@@ -34,44 +34,24 @@ app.factory("questionSrv", function ($q, $http) {
 
         var questions = [];
 
-        const RecipeParse = Parse.Object.extend('Recipe');
-        const query = new Parse.Query(RecipeParse);
+        const questionParse = Parse.Object.extend('Question');
+        const query = new Parse.Query(questionParse);
         query.equalTo("userId",  Parse.User.current());
         query.find().then(function(results) {
 
           for (var i = 0; i < results.length; i++) {
-            recipes.push(new Recipe(results[i]));
+            questions.push(new Question(results[i]));
           }
 
           async.resolve(recipes);
 
         }, function(error) {
-            $log.error('Error while fetching Recipe', error);
+            $log.error('Error while fetching Question', error);
             async.reject(error);
         });
 
         return async.promise;
     }
-  
-
-
-
-
-
-
-  
-    var items = [];
-    var votes = [];
-    var users = [];
-    var wasDoneQ = false;
-    var wasDoneP = false;
-    var wasDoneV = false;
-    var currentQId = 8;
-    var currentVId = 0;
-    var currentPId = 0;
-  
-  
-
   
 
   
@@ -103,6 +83,8 @@ app.factory("questionSrv", function ($q, $http) {
   
     return async.promise;
   }
+
+  
   
   
     function addQuestion(owner, topic, title, description,
@@ -141,6 +123,7 @@ app.factory("questionSrv", function ($q, $http) {
   
   
     return {
+      getActiveUserQuestions : getActiveUserQuestions,
       getQuestions: getQuestions,
       addQuestion: addQuestion,
       addVote : addVote,
