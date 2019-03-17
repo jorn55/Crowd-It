@@ -1,6 +1,6 @@
 app.factory("questionSrv", function ($q, $http, userSrv, $log) {
 
-
+    // var myVoted = null;
     var questions = [];
   
     function Question(parseQuestion) {
@@ -9,7 +9,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
       this.topic = parseQuestion.get("topic");
       this.title = parseQuestion.get("title");
       this.description = parseQuestion.get("description");
-      this.options = parseQuestion.get("options");
+      this.options = parseQuestion.get('optionsData');
       this.isActive = parseQuestion.get("isActive");
     }
   
@@ -38,7 +38,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
         const query = new Parse.Query(questionParse);
         query.equalTo("userId",  Parse.User.current());
         query.find().then(function(results) {
-
+          
           for (var i = 0; i < results.length; i++) {
             questions.push(new Question(results[i]));
           }
@@ -96,19 +96,21 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
       var query = Parse.Query.and(notMyQuestions, isActive);
 
       query.find().then(function(results) {
+        console.log("toAnswer1" + results);
 
-        questionsVotedByMe().then(function(result2){
-          var myVoted = results2;
-        },
-        function(error) {
-          $log.error('Error while fetching My Voted', error);
-          async.reject(error);
-        });
+        // var myVotd = questionsVotedByMe().then(function(result2){
+        //   console.log("myVotd" + result2);
+        //   async.resolve(result2);
+        // },
+        // function(error) {
+        //   $log.error('Error while fetching My Voted', error);
+        //   async.reject(error);
+        // });
         
-        var finalResults = results.filter(myVoted);
+        // var finalResults = results.filter(myVotd);
 
-        for (var i = 0; i < finalResults.length; i++) {
-          toAnswer.push(new Question(finalResults[i]));
+        for (var i = 0; i < results.length; i++) {
+          toAnswer.push(new Question(results[i]));
         }
 
         async.resolve(toAnswer);

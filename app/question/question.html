@@ -3,10 +3,10 @@
 <div class="card-deck">
 
     <div class="card rounded-top bx" ng-class="hvr1 + clk1" ng-mouseleave="hvr1 = 'not-hvrd1'" ng-mouseover="hvr1 = cs1" ng-init="hvr1 = 'not-hvrd1'" ng-click="select(1)" style="height:300px">
-        <img class="card-img-top" style="height:180px" src={{quest.op1image}} alt="Card image">
+        <img class="card-img-top" style="height:180px" src={{quest.options[1].image}} alt="Card image">
         <div class="card-body row">
-          <h4 class="card-title col-10">{{quest.op1title}}</h4><i class="fa fa-check col-1 text-right" aria-hidden="true"></i>
-          <p class="card-text">{{quest.op1descr}}</p>
+          <h4 class="card-title col-10">{{quest.options[1].title}}</h4><i class="fa fa-check col-1 text-right" aria-hidden="true"></i>
+          <p class="card-text">{{quest.options[1].description}}</p>
         </div>
       </div>
 

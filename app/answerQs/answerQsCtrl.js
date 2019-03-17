@@ -30,12 +30,12 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     // })
 
 
-    questionSrv.questionsVotedByMe().then(function (questions) {
-        var myVoted = questions;
-        console.log("myVoted: " + myVoted);
-    }, function (err) {
-        $log.error(err);
-    })
+    // questionSrv.questionsVotedByMe().then(function (questions) {
+    //     var myVoted = questions;
+    //     console.log("myVoted: " + myVoted);
+    // }, function (err) {
+    //     $log.error(err);
+    // })
 
     questionSrv.getActiveUserToAnswer().then(function (questions) {
         $scope.items = questions;
@@ -44,23 +44,23 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
         $log.error(err);
     })
 
-    questionSrv.getActiveUserQuestions().then(function (questions) {
-        var myFavs = questions.favourites;
-        console.log("myFavs: " + myFavs);
-    }, function (err) {
-        $log.error(err);
-    })
+    // questionSrv.getActiveUserQuestions().then(function (questions) {
+    //     var myFavs = questions.favourites;
+    //     console.log("myFavs: " + myFavs);
+    // }, function (err) {
+    //     $log.error(err);
+    // })
 
 
 
 
 
-    function filterForMe() {
-        $scope.items = $scope.items.filter(myVoted);
-        console.log("hello")
-    }
+    // function filterForMe() {
+    //     $scope.items = $scope.items.filter(myVoted);
+    //     console.log("hello")
+    // }
 
-    filterForMe();
+    // filterForMe();
     
 
     $scope.quest = $scope.items[0];
@@ -71,7 +71,9 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     $scope.cs3 = "hvrd3";
 
     $scope.updateQuestion = function (item) {
+        console.log("item" + item);
         $scope.quest = item;
+        // console.log("quest" + $scope.quest.optionsData);
     }
 
     $scope.answerQuestion = function (slctd) {
