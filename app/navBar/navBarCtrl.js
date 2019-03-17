@@ -7,7 +7,7 @@ app.controller("navbarCtrl", function($scope, $location, userSrv) {
     }
 
     $scope.activeUser = userSrv.getActiveUser();
-    console.log("hello " + $scope.activeUser.id);
+    console.log("hello " + $scope.activeUser.name);
     
 
     // $scope.isUserLoggedIn = function() {

@@ -1,7 +1,7 @@
 app.controller("splashCtrl", function($scope, $q, $location, questionSrv, userSrv) {
 
-    var temp = questionSrv.getQuestions();
-    $scope.quest = temp[0];
+    // var temp = questionSrv.getQuestions();
+    // $scope.quest = temp[0];
 
     $scope.invalidLogin = false;
     // $scope.email = "spidey@marvel.com";

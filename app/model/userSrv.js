@@ -17,6 +17,7 @@ app.factory("userSrv", function ($http, $q, $log) {
             // Do stuff after successful login
             $log.info('Logged in user', user);
             activeUser = new User(user);
+            console.log(activeUser);
             async.resolve(activeUser);
         }).catch(function (error) {
             $log.error('Error while logging in user', error);
