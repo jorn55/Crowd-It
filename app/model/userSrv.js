@@ -3,7 +3,7 @@ app.factory("userSrv", function ($http, $q, $log) {
     var activeUser = null;
 
     function User(parseUser) {
-        this.id = parseUser.get("objectId");
+        this.id = parseUser.id;
         this.name = parseUser.get("username");
         this.email = parseUser.get("email");
         this.favourites = parseUser.get("favourites");

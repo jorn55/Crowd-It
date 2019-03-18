@@ -11,7 +11,7 @@ app.controller("myQsCtrl", function ($scope, questionSrv) {
 $scope.updateQuestion = function (item) {
   // console.log("item" + item);
   $scope.quest = item;
-  console.log("quest" + $scope.quest.optionsData);
+  console.log("quest" + $scope.quest);
 }
 
   $scope.addQ = function () {

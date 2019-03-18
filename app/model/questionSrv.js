@@ -4,7 +4,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
   var questions = [];
 
   function Question(parseQuestion) {
-    this.id = parseQuestion.get("objectId");
+    this.id = parseQuestion.id;
     this.userId = parseQuestion.get("userId");
     this.topic = parseQuestion.get("topic");
     this.title = parseQuestion.get("title");
@@ -21,7 +21,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
 
 
   function Vote(parseVote) {
-    this.id = parseVote.get("id");
+    this.id = parseVote.id;
     this.questionId = parseVote.get("question");
     this.votedBy = parseVote.get("votedBy");
     this.voteOption = parseVote.get("voteOption");
@@ -158,6 +158,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     newQuestion.set('title', title);
     newQuestion.set('description', description);
     newQuestion.set('optionsData', options);
+    newQuestion.set('isActive', true);
 
     newQuestion.save().then(
       function (result) {
@@ -185,22 +186,34 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     return items;
   }
 
-  function addMyVote(questionptr, voteOption, comment) {
+  function addMyVote(question, voteOption, comment) {
     const Vote = Parse.Object.extend('Vote');
     const myNewObject = new Vote();
+    // const Question = Parse.Object.extend('Question');
+    // const myNewQuestion = new Question();
+    // myNewQuestion.id = question.objectId;
+    // const myNewQuestion2 = JSON.parse(JSON.stringify(myNewQuestion));
+    // var x = myNewQuestion2;
+    // console.log(`service: ${JSON.stringify(myNewQuestion)}`);
+    // console.log(`service: ${JSON.stringify(angular.toJson(myNewQuestion))}`);
 
-    myNewObject.set('question', questionptr.objectId);
+    // myNewObject.set('question', questionptr);
+    // var pointer = Question.createWithoutData(question.id);
+
+    
     myNewObject.set('votedBy', Parse.User.current());
     myNewObject.set('comment', comment);
     myNewObject.set('voteOption', voteOption);
+    myNewObject.set('question', question);
+    // myNewObject.set('parent', questionptr);
 
     myNewObject.save().then(
       (result) => {
-        if (typeof document !== 'undefined') document.write(`Vote created: ${JSON.stringify(result)}`);
-        console.log('Vote created', result);
+        if (typeof document !== 'undefined') console.log(`Vote created: ${JSON.stringify(result)}`);
+        // console.log('Vote created', result);
       },
       (error) => {
-        if (typeof document !== 'undefined') document.write(`Error while creating Vote: ${JSON.stringify(error)}`);
+        if (typeof document !== 'undefined') console.log(`Error while creating Vote: ${JSON.stringify(error)}`);
         console.error('Error while creating Vote: ', error);
       }
     );

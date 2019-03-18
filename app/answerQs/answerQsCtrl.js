@@ -39,22 +39,24 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
     questionSrv.getActiveUserToAnswer().then(function (questions) {
         $scope.items = questions;
+        $scope.quest = $scope.items[0];
         console.log("toAnswer: " + $scope.items);
     }, function (err) {
-        $log.error(err);
+        console.log(err);
     })
 
 
-    $scope.makeVote = function() {
+    // var questionPointer = {"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id};
+    // $scope.makeVote = questionSrv.addMyVote({"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id}, $scope.selected, $scope.cmnt);
+        
 
+    $scope.makeVote = function() {
         
         var questionPointer = {"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id};
-        console.log("voting" + questionPointer.objectId + "qID  " + $scope.quest.id);
-        questionSrv.addMyVote(questionPointer, $scope.selected, $scope.cmnt).then(function() {
-            console.log("voted");
-        }, function(err) {
-            $log.error(err);
-        })
+        console.log("voting qID  " + $scope.quest.id);
+        
+        questionSrv.addMyVote(questionPointer, $scope.selected, $scope.cmnt);
+        $scope.quest = $scope.items[0];
     };
 
 
