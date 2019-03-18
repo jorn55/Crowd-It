@@ -1,44 +1,57 @@
-app.controller("myQsCtrl", function($scope, questionSrv) {
-
-    var temp = questionSrv.getQuestions();
-
-    var myId = 101;
-
-    function myQuestions(qstn) {
-        return (qstn.owner === myId);
-      }
-      
-    function filterMine() {
-        $scope.items = temp.filter(myQuestions);
-      }
-
-      filterMine();
-
-    $scope.addQ = function() {
-        var temp = questionSrv.addQuestion(myId, "topic1", $scope.title, $scope.description, 
-        $scope.op1image, $scope.op1title, $scope.op1descr, $scope.op2image, $scope.op2title, $scope.op2descr, $scope.op3image, $scope.op3title, $scope.op3descr); 
-        function filterMine() {
-            $scope.items = temp.filter(myQuestions);
-          }
-          filterMine();
-    };
+app.controller("myQsCtrl", function ($scope, questionSrv) {
 
 
-
-    // $scope.items = temp;
-
+  questionSrv.getActiveUserQuestions().then(function (questions) {
+    $scope.items = questions;
     $scope.quest = $scope.items[0];
-
-    $scope.cs1 = "fhvrd1";
-    $scope.cs2 = "fhvrd2";
-    $scope.cs3 = "fhvrd3";
-
-
-$scope.updateQuestion = function(item) {
+}, function (err) {
+    $log.error(err);
+})
+  
+$scope.updateQuestion = function (item) {
+  // console.log("item" + item);
   $scope.quest = item;
-  // console.log(item);
+  console.log("quest" + $scope.quest.optionsData);
 }
+
+  $scope.addQ = function () {
+    var options = [{
+        "title": $scope.op1title,
+        "description": $scope.op1descr,
+        "image": $scope.op1image
+      },
+      {
+        "title": $scope.op2title,
+        "description": $scope.op2descr,
+        "image": $scope.op2image
+      },
+      {
+        "title": $scope.op3title,
+        "description": $scope.op3descr,
+        "image": $scope.op3image
+      }
+    ]
+    
+      questionSrv.createQuestion($scope.title, $scope.description, options).then(function() {
+        questionSrv.getActiveUserQuestions().then(function (questions) {
+          $scope.items = questions;
+          $scope.quest = $scope.items[0];
+      }, function (err) {
+          $log.error(err);
+      })
+      }, function(err) {
+          $log.error(err);
+      })
+
+  };
+
+
+
+  // $scope.quest = $scope.items[0];
+
+  $scope.cs1 = "fhvrd1";
+  $scope.cs2 = "fhvrd2";
+  $scope.cs3 = "fhvrd3";
 
 
 });
-

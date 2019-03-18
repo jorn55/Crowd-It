@@ -4,7 +4,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
   var questions = [];
 
   function Question(parseQuestion) {
-    this.id = parseQuestion.get("id");
+    this.id = parseQuestion.get("objectId");
     this.userId = parseQuestion.get("userId");
     this.topic = parseQuestion.get("topic");
     this.title = parseQuestion.get("title");
@@ -38,11 +38,10 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     const query = new Parse.Query(questionParse);
     query.equalTo("userId", Parse.User.current());
     query.find().then(function (results) {
-
+      
       for (var i = 0; i < results.length; i++) {
         questions.push(new Question(results[i]));
       }
-
       async.resolve(questions);
 
     }, function (error) {
@@ -123,41 +122,42 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     return async.promise;
   }
 
-  function getOption(optionId) {
-    var async = $q.defer();
+  // function getOption(optionId) {
+  //   var async = $q.defer();
 
-    const optionParse = Parse.Object.extend('Option');
-    const query = new Parse.Query(optionParse);
-    query.equalTo("optionId", Parse.User.current());
-    query.find().then(function (results) {
+  //   const optionParse = Parse.Object.extend('Option');
+  //   const query = new Parse.Query(optionParse);
+  //   query.equalTo("optionId", Parse.User.current());
+  //   query.find().then(function (results) {
 
-      for (var i = 0; i < results.length; i++) {
-        questions.push(new Question(results[i]));
-      }
+  //     for (var i = 0; i < results.length; i++) {
+  //       questions.push(new Question(results[i]));
+  //     }
 
-      async.resolve(recipes);
+  //     async.resolve(recipes);
 
-    }, function (error) {
-      $log.error('Error while fetching Question', error);
-      async.reject(error);
-    });
+  //   }, function (error) {
+  //     $log.error('Error while fetching Question', error);
+  //     async.reject(error);
+  //   });
 
-    return async.promise;
-  }
-
-
+  //   return async.promise;
+  // }
 
 
-  function createQuestion(owner, topic, title, description, options) {
+
+
+  function createQuestion(title, description, options) {
     var async = $q.defer();
 
     const QuestionParse = Parse.Object.extend('Question');
     const newQuestion = new QuestionParse();
 
-    newQuestion.set('userId', owner);
-    newQuestion.set('topic', topic);
+    newQuestion.set('userId', Parse.User.current());
+    newQuestion.set('topic', "general");
+    newQuestion.set('title', title);
     newQuestion.set('description', description);
-    newQuestion.set('options', options);
+    newQuestion.set('optionsData', options);
 
     newQuestion.save().then(
       function (result) {
@@ -185,11 +185,11 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     return items;
   }
 
-  function addMyVote(question, voteOption, comment) {
+  function addMyVote(questionptr, voteOption, comment) {
     const Vote = Parse.Object.extend('Vote');
     const myNewObject = new Vote();
 
-    myNewObject.set('question', new Parse.Object(question));
+    myNewObject.set('question', questionptr.objectId);
     myNewObject.set('votedBy', Parse.User.current());
     myNewObject.set('comment', comment);
     myNewObject.set('voteOption', voteOption);
@@ -205,7 +205,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
       }
     );
 
-    return votes;
+    // return votes;
   }
 
   function addUser(name, email, password) {

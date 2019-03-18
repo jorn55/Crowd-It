@@ -46,8 +46,11 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
 
     $scope.makeVote = function() {
-        console.log("voting" + $scope.quest.userId);
-        questionSrv.addMyVote($scope.quest.userId, $scope.selected, $scope.cmnt).then(function() {
+
+        
+        var questionPointer = {"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id};
+        console.log("voting" + questionPointer.objectId + "qID  " + $scope.quest.id);
+        questionSrv.addMyVote(questionPointer, $scope.selected, $scope.cmnt).then(function() {
             console.log("voted");
         }, function(err) {
             $log.error(err);
