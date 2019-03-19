@@ -24,6 +24,12 @@ app.controller("myQsCtrl", function ($scope, questionSrv) {
 $scope.updateQuestion = function (item) {
   // console.log("item" + item);
   $scope.quest = item;
+  questionSrv.getVotesForQuestion($scope.quest.id).then(function (votes) {
+    $scope.votes = votes;
+    
+}, function (err) {
+    $log.error(err);
+})
   console.log("quest" + $scope.quest);
 }
 

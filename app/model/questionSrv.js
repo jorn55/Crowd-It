@@ -83,12 +83,12 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
   function getVotesForQuestion(questionId) {
     var async = $q.defer();
     var votes = [];
-
+debugger;
     const votedParse = Parse.Object.extend('Vote');
     const query = new Parse.Query(votedParse);
     query.equalTo("question", questionId);
     query.find().then(function (results) {
-
+      debugger;
       for (var i = 0; i < results.length; i++) {
         votes.push(results.voteOption);
       }
