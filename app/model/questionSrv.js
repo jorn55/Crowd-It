@@ -189,24 +189,15 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
   function addMyVote(question, voteOption, comment) {
     const Vote = Parse.Object.extend('Vote');
     const myNewObject = new Vote();
-    const Question = Parse.Object.extend('Question');
-    const myNewQuestion = new Question();
-    myNewQuestion.id = question.objectId;
     var questionPointer = {"__type":'Pointer',"className":'Question', "objectId":question.id};
-    // const myNewQuestion2 = JSON.parse(JSON.stringify(myNewQuestion));
-    // var x = myNewQuestion2;
-    // console.log(`service: ${JSON.stringify(myNewQuestion)}`);
-    // console.log(`service: ${JSON.stringify(angular.toJson(myNewQuestion))}`);
 
-    // myNewObject.set('question', questionptr);
-    // var pointer = Question.createWithoutData(question.id);
 
     
     myNewObject.set('votedBy', Parse.User.current());
     myNewObject.set('comment', comment);
     myNewObject.set('voteOption', voteOption);
     myNewObject.set('question', questionPointer);
-    // myNewObject.set('parent', questionptr);
+
 
     myNewObject.save().then(
       (result) => {
