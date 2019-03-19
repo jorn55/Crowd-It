@@ -4,9 +4,22 @@ app.controller("myQsCtrl", function ($scope, questionSrv) {
   questionSrv.getActiveUserQuestions().then(function (questions) {
     $scope.items = questions;
     $scope.quest = $scope.items[0];
+    questionSrv.getVotesForQuestion($scope.quest.id).then(function (votes) {
+      $scope.votes = votes;
+  }, function (err) {
+      $log.error(err);
+  })
 }, function (err) {
     $log.error(err);
 })
+
+
+//   questionSrv.getVotesForQuestion($scope.quest.id).then(function (votes) {
+//     $scope.votes = votes;
+// }, function (err) {
+//     $log.error(err);
+// })
+
   
 $scope.updateQuestion = function (item) {
   // console.log("item" + item);

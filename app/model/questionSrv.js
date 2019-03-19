@@ -80,6 +80,29 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     return async.promise;
   }
 
+  function getVotesForQuestion(questionId) {
+    var async = $q.defer();
+    var votes = [];
+
+    const votedParse = Parse.Object.extend('Vote');
+    const query = new Parse.Query(votedParse);
+    query.equalTo("question", questionId);
+    query.find().then(function (results) {
+
+      for (var i = 0; i < results.length; i++) {
+        votes.push(results.voteOption);
+      }
+
+      async.resolve(votes);
+
+    }, function (error) {
+      $log.error('Error while fetching myVoted', error);
+      async.reject(error);
+    });
+
+    return async.promise;
+  }
+
 
   function getActiveUserToAnswer() {
     var async = $q.defer();
@@ -178,42 +201,14 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
 
   }
 
-  function addUser(name, email, password) {
-    var id = currentPId++;
-    var stars = [];
-    users.push(new User(id, name, email, password, stars));
 
-    return votes;
-  }
 
   // function addStar(pId, qId) {
   //   var pos = users.map(function(e) { return e.id; }).indexOf(pId);
   //   users[pos].stars.push(qId);
   // } 
 
-  function addStar(qId) {
-    var async = $q.defer();
-    var activeUserId = userSrv.getActiveUser().id;
-    var myStars = [];
-
-    const userParse = Parse.Object.extend('User');
-    const query = new Parse.Query(userParse);
-    query.equalTo("objectId", activeUserId);
-    query.find().then(function (results) {
-      debugger;
-        myStars = results.get("favourites");
-        myStars.push(qId);
-        user.set('favourites', myStars);
-
-      async.resolve(myStars);
-
-    }, function (error) {
-      $log.error('Error while fetching myVoted', error);
-      async.reject(error);
-    });
-
-    return async.promise;
-  }
+  
 
 
   return {
@@ -221,11 +216,12 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     createQuestion: createQuestion,
     questionsVotedByMe: questionsVotedByMe,
     getActiveUserToAnswer: getActiveUserToAnswer,
+    getVotesForQuestion : getVotesForQuestion,
+    addMyVote: addMyVote
     // getQuestions: getQuestions,
     // addQuestion: addQuestion,
-    addMyVote: addMyVote,
-    addUser: addUser,
-    addStar: addStar,
+    // addUser: addUser
+    // addStar: addStar,
     // getUsers : getUsers
   }
 

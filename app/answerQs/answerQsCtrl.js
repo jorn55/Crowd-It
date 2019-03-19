@@ -9,7 +9,7 @@ $(document).ready(function () {
 app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
 
- 
+
     $scope.items = [];
     var myStars = [];
     $scope.cmnt = "";
@@ -29,11 +29,13 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
         console.log(err);
     })
 
-        
 
-    $scope.makeVote = function() {
-        
-        
+
+    $scope.makeVote = function () {
+
+        if ($scope.selected === -1) {
+            alert("You must select on option to vote!!");
+        } else {
         questionSrv.addMyVote($scope.quest, $scope.selected, $scope.cmnt);
         questionSrv.getActiveUserToAnswer().then(function (questions) {
             $scope.items = questions;
@@ -42,10 +44,11 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
         }, function (err) {
             console.log(err);
         })
+    }
         // $scope.quest = $scope.items[0];
     };
 
-    
+
 
     $scope.quest = $scope.items[0];
     $scope.isStarred = "";
@@ -77,11 +80,11 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     }
 
 
-    
+
 
     $scope.starQuestion = function () {
         if ($scope.isStarred === "") {
-            questionSrv.addStar($scope.quest.id).then(function (stars) {
+            userSrv.addStar($scope.quest.id).then(function (stars) {
                 $scope.myStars = stars;
             }, function (err) {
                 console.log(err);
@@ -89,7 +92,8 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
             $scope.isStarred = checkStarred();
         } else {
             $scope.isStarred = "";
-            $scope.myStars.splice(myStars.indexOf($scope.quest.id), 1); questionSrv.removeStar($scope.quest.id);
+            $scope.myStars.splice(myStars.indexOf($scope.quest.id), 1);
+            questionSrv.removeStar($scope.quest.id);
         }
     }
 
@@ -126,5 +130,3 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
         console.log("selected" + $scope.selected);
     }
 });
-
-

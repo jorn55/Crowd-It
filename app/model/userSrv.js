@@ -17,7 +17,7 @@ app.factory("userSrv", function ($http, $q, $log) {
             // Do stuff after successful login
             $log.info('Logged in user', user);
             activeUser = new User(user);
-            console.log(activeUser);
+            console.log("active: " + activeUser);
             async.resolve(activeUser);
         }).catch(function (error) {
             $log.error('Error while logging in user', error);
@@ -53,18 +53,18 @@ app.factory("userSrv", function ($http, $q, $log) {
 
     function addStar(qId) {
         var async = $q.defer();
-        var activeUserId = userSrv.getActiveUser().id;
-        var myStars = [];
+        var activeUserId = Parse.User.current();
+        var myStars = activeUser.favourites;
     
         const userParse = Parse.Object.extend('User');
         const query = new Parse.Query(userParse);
-        query.equalTo("id", Parse.User.current());
+        query.equalTo("objectId", activeUserId);
         query.find().then(function (results) {
-
+          debugger;
             myStars = results.get("favourites");
             myStars.push(qId);
             user.set('favourites', myStars);
-
+    
           async.resolve(myStars);
     
         }, function (error) {
@@ -91,7 +91,8 @@ app.factory("userSrv", function ($http, $q, $log) {
         login: login,
         isLoggedIn: isLoggedIn,
         logout: logout,
-        getActiveUser: getActiveUser,
+        getActiveUser: getActiveUser, 
+        addStar : addStar,
         signUp : signUp
     }
 
