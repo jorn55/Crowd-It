@@ -9,10 +9,7 @@ $(document).ready(function () {
 app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
 
-    // var activeUserId = userSrv.getActiveUser().id;
-    // var temp = questionSrv.getActiveUserToAnswer();
-
-    // var answered = questionSrv.questionsVotedByMe();
+ 
     $scope.items = [];
     var myStars = [];
     $scope.cmnt = "";
@@ -20,6 +17,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     $scope.selected = -1;
 
     $scope.activeUser = userSrv.getActiveUser();
+
 
     // var promises = [];
     // promises.push(questionSrv.questionsVotedByMe());
@@ -45,6 +43,13 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
         console.log(err);
     })
 
+    questionSrv.questionsVotedByMe().then(function (meQuestions) {
+        var votedByMe = meQuestions;
+        console.log("voted by me: " + votedByMe.length);
+    }, function (err) {
+        console.log(err);
+    })
+
 
     // var questionPointer = {"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id};
     // $scope.makeVote = questionSrv.addMyVote({"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id}, $scope.selected, $scope.cmnt);
@@ -52,8 +57,8 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
     $scope.makeVote = function() {
         
-        var questionPointer = {"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id};
-        console.log("voting qID  " + $scope.quest.id);
+        // var questionPointer = {"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id};
+        // console.log("voting qID  " + $scope.quest.id);
         
         questionSrv.addMyVote($scope.quest, $scope.selected, $scope.cmnt);
         $scope.quest = $scope.items[0];
