@@ -13,77 +13,38 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     $scope.items = [];
     var myStars = [];
     $scope.cmnt = "";
+    $scope.myStars = [];
 
     $scope.selected = -1;
 
     $scope.activeUser = userSrv.getActiveUser();
 
 
-    // var promises = [];
-    // promises.push(questionSrv.questionsVotedByMe());
-    // promises.push(questionSrv.getActiveUserToAnswer());
-
-    // Promise.all(promises).then(function(results) {
-
-    // })
-
-
-    // questionSrv.questionsVotedByMe().then(function (questions) {
-    //     var myVoted = questions;
-    //     console.log("myVoted: " + myVoted);
-    // }, function (err) {
-    //     $log.error(err);
-    // })
 
     questionSrv.getActiveUserToAnswer().then(function (questions) {
         $scope.items = questions;
         $scope.quest = $scope.items[0];
-        console.log("toAnswer: " + $scope.items);
+        // console.log("toAnswer: " + $scope.items);
     }, function (err) {
         console.log(err);
     })
 
-    questionSrv.questionsVotedByMe().then(function (meQuestions) {
-        var votedByMe = meQuestions;
-        console.log("voted by me: " + votedByMe.length);
-    }, function (err) {
-        console.log(err);
-    })
-
-
-    // var questionPointer = {"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id};
-    // $scope.makeVote = questionSrv.addMyVote({"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id}, $scope.selected, $scope.cmnt);
         
 
     $scope.makeVote = function() {
         
-        // var questionPointer = {"_type":'Pointer',"className":'Question', "objectId":$scope.quest.id};
-        // console.log("voting qID  " + $scope.quest.id);
         
         questionSrv.addMyVote($scope.quest, $scope.selected, $scope.cmnt);
-        $scope.quest = $scope.items[0];
+        questionSrv.getActiveUserToAnswer().then(function (questions) {
+            $scope.items = questions;
+            $scope.quest = $scope.items[0];
+            // console.log("toAnswer: " + $scope.items);
+        }, function (err) {
+            console.log(err);
+        })
+        // $scope.quest = $scope.items[0];
     };
 
-
-    // questionSrv.addMyVote(question, voteOption, comment)
-
-    // questionSrv.getActiveUserQuestions().then(function (questions) {
-    //     var myFavs = questions.favourites;
-    //     console.log("myFavs: " + myFavs);
-    // }, function (err) {
-    //     $log.error(err);
-    // })
-
-
-
-
-
-    // function filterForMe() {
-    //     $scope.items = $scope.items.filter(myVoted);
-    //     console.log("hello")
-    // }
-
-    // filterForMe();
     
 
     $scope.quest = $scope.items[0];
@@ -120,16 +81,20 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
     $scope.starQuestion = function () {
         if ($scope.isStarred === "") {
-            myStars.push($scope.quest.id)
+            questionSrv.addStar($scope.quest.id).then(function (stars) {
+                $scope.myStars = stars;
+            }, function (err) {
+                console.log(err);
+            })
             $scope.isStarred = checkStarred();
         } else {
             $scope.isStarred = "";
-            myStars.splice(myStars.indexOf($scope.quest.id), 1);
+            $scope.myStars.splice(myStars.indexOf($scope.quest.id), 1); questionSrv.removeStar($scope.quest.id);
         }
     }
 
     function checkStarred() {
-        if (myStars.includes($scope.quest.id)) {
+        if ($scope.myStars.includes($scope.quest.id)) {
             return "stard";
         } else {
             return "";

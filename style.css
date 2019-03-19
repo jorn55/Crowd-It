@@ -157,61 +157,13 @@ label {
     color: #777;
   }
 
-  .hvrd1 {
+  
+  .myQ:hover {
     background-color: lime;
-    /* border-width: 5px;
-    border-color: red; */
+    /* box-sizing: border-box;
+    border-width: 5px; */
   }
-
-  .hvrd2 {
-    background-color: lime;
-    /* border-width: 5px;
-    border-color: red; */
-  }
-
-  .hvrd3 {
-    background-color: lime;
-    /* border-width: 5px;
-    border-color: red; */
-  }
-
-  .fhvrd1 {
-
-    border-width: 5px;
-    border-color: yellow;
-  }
-
-  .fhvrd2 {
-
-    border-width: 5px;
-    border-color: yellow;
-  }
-
-  .fhvrd3 {
-
-    border-width: 5px;
-    border-color: yellow;
-  }
-
-  /* .not-hvrd1 {
-
-    border-width: 0px;
-  }
-
-  .not-hvrd2 {
-
-    border-width: 0px;
-  }
-
-  .not-hvrd3 {
-
-    border-width: 0px;
-  } */
-
-  .clicked {
-    background-color: aquamarine;
-    /* border-color: blue; */
-  }
+  
 
   .stard {
     color: #ebbb4a;

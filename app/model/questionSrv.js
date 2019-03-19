@@ -155,16 +155,6 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
   }
 
 
-
-
-  function addQuestion(owner, topic, title, description,
-    op1image, op1title, op1descr, op2image, op2title, op2descr, op3image, op3title, op3descr) {
-    var id = currentQId++;
-    items.push(new Question(id, owner, topic, title, description, op1image, op1title, op1descr, op2image, op2title, op2descr, op3image, op3title, op3descr, true));
-
-    return items;
-  }
-
   function addMyVote(question, voteOption, comment) {
     const Vote = Parse.Object.extend('Vote');
     const myNewObject = new Vote();
@@ -201,12 +191,28 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
   //   users[pos].stars.push(qId);
   // } 
 
-  function addStar(pId, qId) {
-    console.log(users);
-    var pos = users.map(function (e) {
-      return e.id;
-    }).indexOf(pId);
-    users[pos].stars.push(qId);
+  function addStar(qId) {
+    var async = $q.defer();
+    var activeUserId = userSrv.getActiveUser().id;
+    var myStars = [];
+
+    const userParse = Parse.Object.extend('User');
+    const query = new Parse.Query(userParse);
+    query.equalTo("objectId", activeUserId);
+    query.find().then(function (results) {
+      debugger;
+        myStars = results.get("favourites");
+        myStars.push(qId);
+        user.set('favourites', myStars);
+
+      async.resolve(myStars);
+
+    }, function (error) {
+      $log.error('Error while fetching myVoted', error);
+      async.reject(error);
+    });
+
+    return async.promise;
   }
 
 
@@ -216,7 +222,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     questionsVotedByMe: questionsVotedByMe,
     getActiveUserToAnswer: getActiveUserToAnswer,
     // getQuestions: getQuestions,
-    addQuestion: addQuestion,
+    // addQuestion: addQuestion,
     addMyVote: addMyVote,
     addUser: addUser,
     addStar: addStar,
