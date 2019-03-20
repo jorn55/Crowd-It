@@ -92,7 +92,8 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     query.find().then(function (results) {
 
       for (var i = 0; i < results.length; i++) {
-        votes.push(results.voteOption);
+        var questVote = new Vote(results[i]);
+        votes.push(questVote.voteOption);
       }
 
       async.resolve(votes);

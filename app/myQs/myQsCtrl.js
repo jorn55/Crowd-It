@@ -12,12 +12,9 @@ app.controller("myQsCtrl", function ($scope, questionSrv, userSrv) {
     $scope.quest = $scope.items[0];
     questionSrv.getVotesForQuestion($scope.quest.id).then(function (votes) {
       $scope.votes = votes;
-      $scope.percent[0] = votes;
-      $scope.percent[1] = questionSrv.getOccurrence(votes, 2);
-      $scope.percent[2] = questionSrv.getOccurrence(votes, 3);
-      // $scope.percent[0] = (questionSrv.getOccurrence(votes, 1) / $scope.votes.length) * 100;
-      // $scope.percent[1] = (questionSrv.getOccurrence(votes, 2) / $scope.votes.length) * 100;
-      // $scope.percent[2] = (questionSrv.getOccurrence(votes, 3) / $scope.votes.length) * 100;
+      $scope.percent[0] = (questionSrv.getOccurrence(votes, 1) / $scope.votes.length) * 100;
+      $scope.percent[1] = (questionSrv.getOccurrence(votes, 2) / $scope.votes.length) * 100;
+      $scope.percent[2] = (questionSrv.getOccurrence(votes, 3) / $scope.votes.length) * 100;
 
     }, function (err) {
       $log.error(err);
@@ -41,11 +38,14 @@ app.controller("myQsCtrl", function ($scope, questionSrv, userSrv) {
     $scope.quest = item;
     questionSrv.getVotesForQuestion($scope.quest.id).then(function (votes) {
       $scope.votes = votes;
+      $scope.percent[0] = (questionSrv.getOccurrence(votes, 1) / $scope.votes.length) * 100;
+      $scope.percent[1] = (questionSrv.getOccurrence(votes, 2) / $scope.votes.length) * 100;
+      $scope.percent[2] = (questionSrv.getOccurrence(votes, 3) / $scope.votes.length) * 100;
 
     }, function (err) {
       $log.error(err);
     })
-    console.log("quest" + $scope.quest);
+    // console.log("quest" + $scope.quest);
   }
 
   $scope.addQ = function () {
