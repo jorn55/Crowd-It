@@ -1,7 +1,7 @@
 app.factory("questionSrv", function ($q, $http, userSrv, $log) {
 
   // var myVoted = null;
-  var questions = [];
+  // var questions = [];
 
   function Question(parseQuestion) {
     this.id = parseQuestion.id;
@@ -114,21 +114,28 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
 }
 
 
-  function getQuestionsFromId() {
+  function getQuestionsFromId(ids) {
     var async = $q.defer();
-    var questionId = userSrv.getActiveUser().favourites;
+    // var questionId = userSrv.getActiveUser().favourites;
     var queries = [];
+    var myFavs = [];
 
     const questionParse = Parse.Object.extend('Question');
 
-    for (var i = 0; i < questionId.length; i++) {
+    for (var i = 0; i < ids.length; i++) {
       var query = new Parse.Query(questionParse);
-      query.equalTo("objectId", questionId[i]);
+      query.equalTo("objectId", ids[i]);
       queries.push(query)
     }
 
     var mainQuery = Parse.Query.or(...queries);
-    mainQuery.find().then(function (myFavs) {
+
+
+    mainQuery.find().then(function (results) {
+      for (var i = 0; i < results.length; i++) {
+        var favQuest = new Question(results[i]);
+        myFavs.push(favQuest);
+      }
 
       async.resolve(myFavs);
 

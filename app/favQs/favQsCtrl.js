@@ -8,17 +8,19 @@ app.controller("favQsCtrl", function($scope, questionSrv, userSrv) {
   $scope.activeUser = userSrv.getActiveUser();
   var myStars = userSrv.getActiveUser().favourites;
   
-  $scope.items = questionSrv.getQuestionsFromId(myStars);
-
-
-
-
-
+  questionSrv.getQuestionsFromId(myStars).then(function (favs) {
+    $scope.items = favs;
     $scope.quest = $scope.items[0];
+}, function (err) {
+    console.log(err);
+})
 
-    $scope.cs1 = "fhvrd1";
-    $scope.cs2 = "fhvrd2";
-    $scope.cs3 = "fhvrd3";
+
+    // $scope.quest = $scope.items[0];
+
+    // $scope.cs1 = "fhvrd1";
+    // $scope.cs2 = "fhvrd2";
+    // $scope.cs3 = "fhvrd3";
 
 
 // $scope.updateQuestion = function(item) {
