@@ -17,6 +17,7 @@ app.factory("userSrv", function ($http, $q, $log) {
             // Do stuff after successful login
             $log.info('Logged in user', user);
             activeUser = new User(user);
+            userFavourites = activeUser.favourites;
             console.log("active: " + activeUser);
             async.resolve(activeUser);
         }).catch(function (error) {
@@ -51,6 +52,51 @@ app.factory("userSrv", function ($http, $q, $log) {
     }
 
 
+    function updateStars(starsArr) {
+        const User = new Parse.User();
+        const query = new Parse.Query(User);
+        
+        // Finds the user by its ID
+        query.get(activeUser).then((user) => {
+          // Updates the data we want
+          user.set('favourites', starsArr);
+          // Saves the user with the updated data
+          user.save().then((response) => {
+            if (typeof document !== 'undefined') $log.info(`Updated user: ${JSON.stringify(response)}`);
+            console.log('Updated user', response);
+          }).catch((error) => {
+            if (typeof document !== 'undefined') $log.info(`Error while updating user: ${JSON.stringify(error)}`);
+            console.error('Error while updating user', error);
+          });
+        });
+    }
+
+
+    // function addMyVote(question, voteOption, comment) {
+    //     const Vote = Parse.Object.extend('Vote');
+    //     const myNewObject = new Vote();
+    //     var questionPointer = { "__type": 'Pointer', "className": 'Question', "objectId": question.id };
+    
+    //     myNewObject.set('votedBy', Parse.User.current());
+    //     myNewObject.set('comment', comment);
+    //     myNewObject.set('voteOption', voteOption);
+    //     myNewObject.set('question', questionPointer);
+    
+    //     myNewObject.save().then(
+    //       (result) => {
+    //         if (typeof document !== 'undefined') console.log(`Vote created: ${JSON.stringify(result)}`);
+    //         // console.log('Vote created', result);
+    //       },
+    //       (error) => {
+    //         if (typeof document !== 'undefined') console.log(`Error while creating Vote: ${JSON.stringify(error)}`);
+    //         console.error('Error while creating Vote: ', error);
+    //       }
+    //     );
+    
+    //   }
+    
+    
+    
     function addStar(qId) {
         var async = $q.defer();
         var activeUserId = Parse.User.current();
@@ -93,6 +139,7 @@ app.factory("userSrv", function ($http, $q, $log) {
         logout: logout,
         getActiveUser: getActiveUser, 
         addStar : addStar,
+        updateStars : updateStars,
         signUp : signUp
     }
 

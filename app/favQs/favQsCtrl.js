@@ -1,20 +1,18 @@
-app.controller("favQsCtrl", function($scope, questionSrv) {
+app.controller("favQsCtrl", function($scope, questionSrv, userSrv) {
 
-    var temp = questionSrv.getQuestions();
+  if (!userSrv.isLoggedIn()) {
+    $location.path("/");
+    return;
+}  
 
-    var myFavs = [1,2,4,7];
+  $scope.activeUser = userSrv.getActiveUser();
+  var myStars = userSrv.getActiveUser().favourites;
+  
+  $scope.items = questionSrv.getQuestionsFromId(myStars);
 
-    function myFav(qstn) {
-        return myFavs.includes(qstn.id);
-      }
-      
-    function myFunction() {
-        $scope.items = temp.filter(myFav);
-      }
 
-      myFunction();
 
-    // $scope.items = temp;
+
 
     $scope.quest = $scope.items[0];
 
@@ -23,10 +21,10 @@ app.controller("favQsCtrl", function($scope, questionSrv) {
     $scope.cs3 = "fhvrd3";
 
 
-$scope.updateQuestion = function(item) {
-  $scope.quest = item;
-  // console.log(item);
-}
+// $scope.updateQuestion = function(item) {
+//   $scope.quest = item;
+//   // console.log(item);
+// }
 
   
 });

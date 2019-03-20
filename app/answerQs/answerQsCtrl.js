@@ -8,16 +8,18 @@ $(document).ready(function () {
 
 app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
-
+    if (!userSrv.isLoggedIn()) {
+        $location.path("/");
+        return;
+    }  
 
     $scope.items = [];
-    var myStars = [];
     $scope.cmnt = "";
-    $scope.myStars = [];
 
     $scope.selected = -1;
 
     $scope.activeUser = userSrv.getActiveUser();
+    $scope.myStars = userSrv.getActiveUser().favourites;
 
 
 
@@ -25,6 +27,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
         $scope.items = questions;
         $scope.quest = $scope.items[0];
         // console.log("toAnswer: " + $scope.items);
+        // console.log(`myStars: ${$scope.myStars} qID: ${$scope.quest.id}`);
     }, function (err) {
         console.log(err);
     })
@@ -36,16 +39,14 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
         if ($scope.selected === -1) {
             alert("You must select on option to vote!!");
         } else {
-        questionSrv.addMyVote($scope.quest, $scope.selected, $scope.cmnt);
-        questionSrv.getActiveUserToAnswer().then(function (questions) {
-            $scope.items = questions;
-            $scope.quest = $scope.items[0];
-            // console.log("toAnswer: " + $scope.items);
-        }, function (err) {
-            console.log(err);
-        })
-    }
-        // $scope.quest = $scope.items[0];
+            questionSrv.addMyVote($scope.quest, $scope.selected, $scope.cmnt);
+            questionSrv.getActiveUserToAnswer().then(function (questions) {
+                $scope.items = questions;
+                $scope.quest = $scope.items[0];
+            }, function (err) {
+                console.log(err);
+            })
+        }
     };
 
 
@@ -60,7 +61,11 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     $scope.updateQuestion = function (item) {
         console.log("item" + item);
         $scope.quest = item;
-        // console.log("quest" + $scope.quest.optionsData);
+        if ($scope.myStars.includes($scope.quest.id)) {
+            $scope.isStarred = "stard";
+        } else {
+            $scope.isStarred = false;
+        }
     }
 
     $scope.answerQuestion = function (slctd) {
@@ -71,7 +76,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
             answered.push($scope.quest.id);
             $scope.selected = -1;
             $scope.cmnt = "";
-            filterForMe();
+            // filterForMe();
             $scope.quest = $scope.items[0];
             $scope.clk1 = "";
             $scope.clk2 = "";
@@ -80,22 +85,36 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
     }
 
 
+    $scope.myStars = userSrv.getActiveUser().favourites;
 
 
     $scope.starQuestion = function () {
-        if ($scope.isStarred === "") {
-            userSrv.addStar($scope.quest.id).then(function (stars) {
-                $scope.myStars = stars;
-            }, function (err) {
-                console.log(err);
-            })
-            $scope.isStarred = checkStarred();
+        if (!($scope.myStars.includes($scope.quest.id))) {
+            $scope.myStars.push($scope.quest.id);
+            userSrv.updateStars($scope.myStars);
+            $scope.isStarred = "stard";
+            console.log(`myStars: ${$scope.myStars} qID: ${$scope.quest.id}`);
         } else {
+            $scope.myStars.splice($scope.myStars.indexOf($scope.quest.id), 1);
             $scope.isStarred = "";
-            $scope.myStars.splice(myStars.indexOf($scope.quest.id), 1);
-            questionSrv.removeStar($scope.quest.id);
+            userSrv.updateStars($scope.myStars);
+            console.log(`myStars: ${$scope.myStars} qID: ${$scope.quest.id}`);
         }
     }
+
+    //     if ($scope.isStarred === "") {
+    //         userSrv.addStar($scope.quest.id).then(function (stars) {
+    //             $scope.myStars = stars;
+    //         }, function (err) {
+    //             console.log(err);
+    //         })
+    //         $scope.isStarred = checkStarred();
+    //     } else {
+    //         $scope.isStarred = "";
+    //         $scope.myStars.splice(myStars.indexOf($scope.quest.id), 1);
+    //         questionSrv.removeStar($scope.quest.id);
+    //     }
+    // }
 
     function checkStarred() {
         if ($scope.myStars.includes($scope.quest.id)) {

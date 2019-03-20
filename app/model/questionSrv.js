@@ -83,12 +83,14 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
   function getVotesForQuestion(questionId) {
     var async = $q.defer();
     var votes = [];
-debugger;
+
     const votedParse = Parse.Object.extend('Vote');
     const query = new Parse.Query(votedParse);
-    query.equalTo("question", questionId);
+    var questionPointer = { "__type": 'Pointer', "className": 'Question', "objectId": questionId };
+
+    query.equalTo("question", questionPointer);
     query.find().then(function (results) {
-      debugger;
+
       for (var i = 0; i < results.length; i++) {
         votes.push(results.voteOption);
       }
@@ -97,6 +99,40 @@ debugger;
 
     }, function (error) {
       $log.error('Error while fetching myVoted', error);
+      async.reject(error);
+    });
+
+    return async.promise;
+  }
+
+
+  function getOccurrence(array, value) {
+    var count = 0;
+    array.forEach((v) => (v === value && count++));
+    return count;
+}
+
+
+  function getQuestionsFromId() {
+    var async = $q.defer();
+    var questionId = userSrv.getActiveUser().favourites;
+    var queries = [];
+
+    const questionParse = Parse.Object.extend('Question');
+
+    for (var i = 0; i < questionId.length; i++) {
+      var query = new Parse.Query(questionParse);
+      query.equalTo("objectId", questionId[i]);
+      queries.push(query)
+    }
+
+    var mainQuery = Parse.Query.or(...queries);
+    mainQuery.find().then(function (myFavs) {
+
+      async.resolve(myFavs);
+
+    }, function (error) {
+      $log.error('Error while fetching Question', error);
       async.reject(error);
     });
 
@@ -119,21 +155,21 @@ debugger;
 
 
     // var query = Parse.Query.and(notMyQuestions, isActive);
-  // debugger;
+    // debugger;
     query.find().then(function (notMyQuestns) {
       questionsVotedByMe().then(function (questionsIAnswered) {
 
         var finalQuestionsArr = [];
         var nmq;
         console.log("Iansw " + questionsIAnswered.length)
-     
+
         // debugger;
         for (var i = 0; i < notMyQuestns.length; i++) {
           if (!(questionsIAnswered.includes(notMyQuestns[i].id))) {
             toAnswer.push(new Question(notMyQuestns[i]));
           }
         }
-      
+
         async.resolve(toAnswer);
       },
         function (error) {
@@ -208,7 +244,7 @@ debugger;
   //   users[pos].stars.push(qId);
   // } 
 
-  
+
 
 
   return {
@@ -216,7 +252,9 @@ debugger;
     createQuestion: createQuestion,
     questionsVotedByMe: questionsVotedByMe,
     getActiveUserToAnswer: getActiveUserToAnswer,
-    getVotesForQuestion : getVotesForQuestion,
+    getVotesForQuestion: getVotesForQuestion,
+    getQuestionsFromId: getQuestionsFromId,
+    getOccurrence : getOccurrence,
     addMyVote: addMyVote
     // getQuestions: getQuestions,
     // addQuestion: addQuestion,
