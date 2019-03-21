@@ -20,7 +20,8 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="col-md-1"></div>
+      <div class="col"></div>
+      <div class="col-10">
       <crowdit-question></crowdit-question>
       <div class="form-group">
         <p>{{activeUser.name}}</p>
@@ -28,15 +29,15 @@
         <textarea class="form-control" rows="3" id="comment" ng-model="cmnt">{{cmnt}}</textarea>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col-3">
           <button type="button" class="btn btn-primary" ng-click="makeVote()">Join the Crowd!</button>
-          <a class="nav-link" href=""><i class="fa fa-star ifa1" ng-click="starQuestion()" ng-class="isStarred"></i></a>
-        </div>
-        <div class="col">
           <!-- <a class="nav-link" href=""><i class="fa fa-star ifa1" ng-click="starQuestion()" ng-class="isStarred"></i></a> -->
         </div>
-      </div>
-      <div class="col-md-1"></div>
+        <div class="col">
+          <a class="nav-link" href=""><i class="fa fa-star ifa1" ng-click="starQuestion()" ng-class="isStarred"></i></a>
+        </div><div class="col"></div>
+      </div></div>
+      <!-- <div class="col"></div> -->
     </div>
     <!-- /#wrapper -->
 

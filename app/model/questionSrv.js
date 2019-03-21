@@ -29,6 +29,29 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     this.comment = parseVote.get("comment");
   }
 
+  function getAllQuestions() {
+    var async = $q.defer();
+    var questions = [];
+
+    const questionParse = Parse.Object.extend('Question');
+    const query = new Parse.Query(questionParse);
+    query.notEqualTo("userId", 7);
+    query.find().then(function (results) {
+
+      for (var i = 0; i < results.length; i++) {
+        questions.push(new Question(results[i]));
+      }
+      async.resolve(questions);
+
+    }, function (error) {
+      $log.error('Error while fetching Question', error);
+      async.reject(error);
+    });
+
+    return async.promise;
+  }
+  
+  
   function getActiveUserQuestions() {
     var async = $q.defer();
     var activeUserId = userSrv.getActiveUser().id;
@@ -245,7 +268,30 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
 
   }
 
+  function addAnonymousVote(question, voteOption, comment) {
+    const Vote = Parse.Object.extend('Vote');
+    const myNewObject = new Vote();
+    var questionPointer = { "__type": 'Pointer', "className": 'Question', "objectId": question.id };
+    var userPointer = { "__type": 'Pointer', "className": '_User', "objectId": -1 };
+    
 
+    myNewObject.set('votedBy', userPointer);
+    myNewObject.set('comment', comment);
+    myNewObject.set('voteOption', voteOption);
+    myNewObject.set('question', questionPointer);
+
+    myNewObject.save().then(
+      (result) => {
+        if (typeof document !== 'undefined') console.log(`Vote created: ${JSON.stringify(result)}`);
+        // console.log('Vote created', result);
+      },
+      (error) => {
+        if (typeof document !== 'undefined') console.log(`Error while creating Vote: ${JSON.stringify(error)}`);
+        console.error('Error while creating Vote: ', error);
+      }
+    );
+
+  }
 
   // function addStar(pId, qId) {
   //   var pos = users.map(function(e) { return e.id; }).indexOf(pId);
@@ -256,6 +302,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
 
 
   return {
+    getAllQuestions : getAllQuestions,
     getActiveUserQuestions: getActiveUserQuestions,
     createQuestion: createQuestion,
     questionsVotedByMe: questionsVotedByMe,
@@ -263,6 +310,7 @@ app.factory("questionSrv", function ($q, $http, userSrv, $log) {
     getVotesForQuestion: getVotesForQuestion,
     getQuestionsFromId: getQuestionsFromId,
     getOccurrence : getOccurrence,
+    addAnonymousVote : addAnonymousVote,
     addMyVote: addMyVote
     // getQuestions: getQuestions,
     // addQuestion: addQuestion,

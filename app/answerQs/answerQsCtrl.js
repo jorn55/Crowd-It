@@ -15,6 +15,7 @@ app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
 
     $scope.items = [];
     $scope.cmnt = "";
+    $scope.world = true;
 
     $scope.selected = -1;
 

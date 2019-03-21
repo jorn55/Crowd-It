@@ -10,6 +10,9 @@
     <div class="collapse navbar-collapse" id="collapsibleNavId">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
             <li class="nav-item" ng-show="isUserLoggedIn">
+                <a class="nav-link" href="" ng-click="logout()">Log Out</a>
+            </li>
+            <li class="nav-item" ng-show="isUserLoggedIn">
                 <a class="nav-link" href="#!/myQs"><i class="fa fa-user ifa1"></i></a>
             </li>
             <li class="nav-item" ng-show="isUserLoggedIn">
@@ -32,9 +35,18 @@
 </nav>
     <div class="container-fluid">
         <div class="row no-gutter">
-            
-          <div class="d-none d-md-flex col-md-4 col-lg-6 bg-image"><crowdit-question></crowdit-question></div>
-          <div class="col-md-8 col-lg-6">
+            <!-- <div class="col"></div> -->
+          <div class="col-8 bg-image">
+          <div class="container-fluid">
+            <div class="row">
+            <crowdit-question></crowdit-question>
+          </div>
+          <div class="row">
+            <button type="button" class="btn btn-success" ng-click="makeVote()">Join the Crowd!</button>
+          </div>
+          </div></div>
+
+          <div class="col-4">
             <div class="login d-flex align-items-center py-5">
               <div class="container">
                     
