@@ -5,6 +5,7 @@ app.controller("splashCtrl", function($scope, $q, $location, questionSrv, userSr
     userSrv.logout();
     $scope.invalidLogin = false;
     $scope.selected === -1;
+    $scope.world = true;
     var i = 0;
     // $scope.email = "spidey@marvel.com";
     // $scope.pwd = "1234";
