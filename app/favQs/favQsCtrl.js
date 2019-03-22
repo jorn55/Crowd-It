@@ -1,4 +1,4 @@
-app.controller("favQsCtrl", function($scope, questionSrv, userSrv) {
+app.controller("favQsCtrl", function($scope,  $location, questionSrv, userSrv) {
 
   if (!userSrv.isLoggedIn()) {
     $location.path("/");

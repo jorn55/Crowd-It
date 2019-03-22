@@ -1,4 +1,4 @@
-app.controller("myQsCtrl", function ($scope, questionSrv, userSrv) {
+app.controller("myQsCtrl", function ($scope,  $location, questionSrv, userSrv) {
 
 
   if (!userSrv.isLoggedIn()) {

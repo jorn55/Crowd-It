@@ -6,7 +6,7 @@ $(document).ready(function () {
 
 
 
-app.controller("answerQsCtrl", function ($scope, questionSrv, userSrv) {
+app.controller("answerQsCtrl", function ($scope, $location, questionSrv, userSrv) {
 
     if (!userSrv.isLoggedIn()) {
         $location.path("/");
