@@ -53,23 +53,61 @@ app.factory("userSrv", function ($http, $q, $log) {
 
 
     function updateStars(starsArr) {
+      var async = $q.defer();
         const User = new Parse.User();
         const query = new Parse.Query(User);
-        
+        query.equalTo("userId", Parse.User.current());
         // Finds the user by its ID
-        query.get(activeUser).then((user) => {
+        // query.get(activeUser).then((user) => {
           // Updates the data we want
           user.set('favourites', starsArr);
           // Saves the user with the updated data
-          user.save().then((response) => {
-            if (typeof document !== 'undefined') $log.info(`Updated user: ${JSON.stringify(response)}`);
-            console.log('Updated user', response);
-          }).catch((error) => {
-            if (typeof document !== 'undefined') $log.info(`Error while updating user: ${JSON.stringify(error)}`);
-            console.error('Error while updating user', error);
-          });
-        });
+          user.save().then(
+            function (result) {
+              $log.info('user updated', result);
+              starsArr = result;
+              async.resolve(starsArr);
+          },
+          function (error) {
+            $log.error('Error while updating user: ', error);
+            async.reject(error);
+          }
+          );
+        return async.promise;
     }
+
+
+    function updateStars(starsArr) {
+      var async = $q.defer();
+
+      const User = new Parse.User();
+      const query = new Parse.Query(User);
+
+      query.equalTo("objectId", Parse.User.current());
+      query.find().then(function (user) {
+        user.set('favourites', starsArr);
+        // Saves the user with the updated data
+        user.save().then(
+          function (result) {
+            $log.info('user updated', result);
+            starsArr = result;
+            async.resolve(starsArr);
+        },
+        function (error) {
+          $log.error('Error while updating user: ', error);
+          async.reject(error);
+        }
+        );
+      }, function (error) {
+        $log.error('Error while fetching user', error);
+        async.reject(error);
+      });
+  
+      return async.promise;
+    }
+    
+
+    
 
 
     // function addMyVote(question, voteOption, comment) {

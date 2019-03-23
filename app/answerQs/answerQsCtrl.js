@@ -18,6 +18,7 @@ app.controller("answerQsCtrl", function ($scope, $location, questionSrv, userSrv
     $scope.world = true;
 
     $scope.selected = -1;
+    $scope.myStars = [];
 
     $scope.activeUser = userSrv.getActiveUser();
     $scope.myStars = userSrv.getActiveUser().favourites;
@@ -85,8 +86,6 @@ app.controller("answerQsCtrl", function ($scope, $location, questionSrv, userSrv
         }
     }
 
-
-    $scope.myStars = userSrv.getActiveUser().favourites;
 
 
     $scope.starQuestion = function () {

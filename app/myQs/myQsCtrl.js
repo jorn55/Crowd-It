@@ -1,3 +1,10 @@
+$(document).ready(function () {
+  $("#menu-toggle").click(function () {
+      $("#wrapper").toggleClass("toggled");
+  });
+});
+
+
 app.controller("myQsCtrl", function ($scope,  $location, questionSrv, userSrv) {
 
 

@@ -1,3 +1,9 @@
+$(document).ready(function () {
+  $("#menu-toggle").click(function () {
+      $("#wrapper").toggleClass("toggled");
+  });
+});
+
 app.controller("favQsCtrl", function($scope,  $location, questionSrv, userSrv) {
 
   if (!userSrv.isLoggedIn()) {
